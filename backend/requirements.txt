@@ -1,0 +1,41 @@
+# ─── FastAPI & ASGI ──────────────────────────────────────
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+python-multipart==0.0.12
+
+# ─── Validation & Paramètres ─────────────────────────────
+pydantic==2.10.3
+pydantic-settings==2.6.1
+
+# ─── Base de données PostgreSQL ──────────────────────────
+sqlalchemy==2.0.36
+asyncpg==0.30.0
+alembic==1.14.0
+
+# ─── LangChain / LangGraph ───────────────────────────────
+langchain==0.3.9
+langchain-groq==0.2.1
+langchain-community==0.3.9
+langchain-core==0.3.21
+langgraph==0.2.53
+langsmith==0.1.147
+
+# ─── RAG / Vector Store ──────────────────────────────────
+chromadb==0.5.23
+
+# ─── Parsing CV ──────────────────────────────────────────
+pymupdf==1.24.14
+python-docx==1.1.2
+
+# ─── Génération PDF rapport ──────────────────────────────
+reportlab==4.2.5
+weasyprint==62.3
+
+# ─── HTTP client (pour Ollama) ────────────────────────────
+httpx==0.27.2
+aiohttp==3.11.9
+
+# ─── Utilitaires ─────────────────────────────────────────
+python-dotenv==1.0.1
+loguru==0.7.3
+tenacity==9.0.0

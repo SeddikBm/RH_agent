@@ -1,0 +1,85 @@
+
+services:
+  # ─────────────────────────────────────
+  # PostgreSQL — Base de données
+  # ─────────────────────────────────────
+  db:
+    image: postgres:16-alpine
+    container_name: hr_agent_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-hr_agent}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-hr_agent_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-hr_agent_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-hr_agent}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─────────────────────────────────────
+  # Ollama — Embeddings locaux (mxbai-embed-large)
+  # ─────────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: hr_agent_ollama
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # Pull le modèle d'embedding au démarrage
+    entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 8 && ollama pull mxbai-embed-large && wait"]
+
+  # ─────────────────────────────────────
+  # Backend FastAPI
+  # ─────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hr_agent_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - chroma_data:/app/chroma_db
+    env_file:
+      - .env
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-hr_agent}:${POSTGRES_PASSWORD:-hr_agent_pass}@db:5432/${POSTGRES_DB:-hr_agent_db}
+    depends_on:
+      db:
+        condition: service_healthy
+      ollama:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ─────────────────────────────────────
+  # Frontend React (Nginx)
+  # ─────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: hr_agent_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  pg_data:
+  ollama_data:
+  chroma_data:
