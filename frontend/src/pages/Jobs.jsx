@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { jobApi } from '../api/client';
 import toast from 'react-hot-toast';
-import { Plus, Briefcase, Trash2, Edit3, X, Save, ChevronDown, ChevronUp } from 'lucide-react';
+import { Plus, Briefcase, Trash2, Edit3, X, Save, ChevronDown, ChevronUp, UploadCloud } from 'lucide-react';
 
 const EMPTY_FORM = {
   titre: '', entreprise: '', description: '',
@@ -18,6 +19,39 @@ export default function Jobs() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [expandedId, setExpandedId] = useState(null);
+  const [extracting, setExtracting] = useState(false);
+
+  const onDrop = async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+    setExtracting(true);
+    try {
+      const data = await jobApi.extract(file);
+      setForm({
+        ...EMPTY_FORM,
+        titre: data.titre || '',
+        entreprise: data.entreprise || '',
+        description: data.description || '',
+        competences_requises: (data.competences_requises || []).join(', '),
+        competences_souhaitees: (data.competences_souhaitees || []).join(', '),
+        annees_experience_min: data.annees_experience_min?.toString() || '',
+        formation_requise: data.formation_requise || '',
+        localisation: data.localisation || '',
+        type_contrat: data.type_contrat || '',
+      });
+      toast.success('Fiche de poste extraite avec succès !');
+    } catch (err) {
+      toast.error('Erreur extraction: ' + err.message);
+    } finally {
+      setExtracting(false);
+    }
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: { 'application/pdf': ['.pdf'], 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'], 'text/plain': ['.txt'] },
+    multiple: false
+  });
 
   const load = () => {
     jobApi.list().then(setJobs).catch(console.error).finally(() => setLoading(false));
@@ -62,6 +96,7 @@ export default function Jobs() {
   };
 
   const handleEdit = (job) => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setForm({
       titre: job.titre || '',
       entreprise: job.entreprise || '',
@@ -113,6 +148,40 @@ export default function Jobs() {
             </button>
           </div>
 
+          {!editingId && (
+            <div
+              {...getRootProps()}
+              style={{
+                border: `2px dashed ${isDragActive ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                padding: '30px',
+                borderRadius: 'var(--radius-lg)',
+                textAlign: 'center',
+                backgroundColor: isDragActive ? 'rgba(99,102,241,0.05)' : 'var(--color-bg-secondary)',
+                cursor: 'pointer',
+                marginBottom: 20,
+                transition: 'all 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column'
+              }}
+            >
+              <input {...getInputProps()} />
+              {extracting ? (
+                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+                    <div className="spinner" style={{ width: 32, height: 32, borderWidth: 3 }}></div>
+                    <span style={{ fontSize: 14, color: 'var(--color-text-secondary)' }}>Extraction IA en cours...</span>
+                 </div>
+              ) : (
+                <>
+                  <UploadCloud size={32} color={isDragActive ? "var(--color-primary)" : "var(--color-text-muted)"} style={{ marginBottom: 10 }} />
+                  <p style={{ margin: 0, fontWeight: 500, color: 'var(--color-text-primary)' }}>Déposez un PDF/DOCX de fiche de poste pour auto-remplir</p>
+                  <p style={{ margin: '5px 0 0', fontSize: 13, color: 'var(--color-text-muted)' }}>Glissez ou cliquez</p>
+                </>
+              )}
+            </div>
+          )}
+
           <div className="grid-2" style={{ gap: 12, marginBottom: 12 }}>
             <div className="form-group">
               <label className="form-label">Titre du Poste *</label>
@@ -131,11 +200,11 @@ export default function Jobs() {
 
           <div className="grid-2" style={{ gap: 12, marginBottom: 12 }}>
             <div className="form-group">
-              <label className="form-label">Compétences Requises (virgule)</label>
-              <input className="form-input" placeholder="ex: Python, FastAPI, PostgreSQL" value={form.competences_requises} onChange={e => setForm(p => ({ ...p, competences_requises: e.target.value }))} />
+              <label className="form-label">Compétences Requises <span style={{fontWeight: 400, textTransform: 'none', fontSize: 11}}>(séparées par virgule)</span></label>
+              <input className="form-input" placeholder="ex: Python, FastAPI" value={form.competences_requises} onChange={e => setForm(p => ({ ...p, competences_requises: e.target.value }))} />
             </div>
             <div className="form-group">
-              <label className="form-label">Compétences Souhaitées</label>
+              <label className="form-label">Compétences Souhaitées <span style={{fontWeight: 400, textTransform: 'none', fontSize: 11}}>(séparées par virgule)</span></label>
               <input className="form-input" placeholder="ex: Kubernetes, Terraform" value={form.competences_souhaitees} onChange={e => setForm(p => ({ ...p, competences_souhaitees: e.target.value }))} />
             </div>
           </div>
@@ -178,7 +247,7 @@ export default function Jobs() {
         </div>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {jobs.map(job => {
+          {jobs.filter(job => job.id !== editingId).map(job => {
             const isExpanded = expandedId === job.id;
             return (
               <div key={job.id} className="card" style={{ cursor: 'default' }}>

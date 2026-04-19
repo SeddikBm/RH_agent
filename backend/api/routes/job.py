@@ -2,14 +2,17 @@
 import uuid
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from loguru import logger
+import os
 
 from models.database import JobModel, get_db
 from models.schemas import JobCreate, JobResponse
 from services.rag import index_job, delete_job_from_index
+from services.parser import parse_cv
+from services.llm import invoke_structured
 
 router = APIRouter()
 
@@ -56,6 +59,35 @@ async def create_job(job_data: JobCreate, db: AsyncSession = Depends(get_db)):
     return JobResponse(id=job.id, date_creation=job.date_creation, date_modification=job.date_modification, **job_data.model_dump())
 
 
+@router.post("/extract", response_model=JobCreate)
+async def extract_job(file: UploadFile = File(...)):
+    """Extrait les données d'une fiche de poste depuis un fichier (PDF, DOCX, TXT)."""
+    # Sauvegarder temp
+    os.makedirs("data/uploads", exist_ok=True)
+    temp_path = f"data/uploads/temp_{uuid.uuid4()}_{file.filename}"
+    
+    try:
+        with open(temp_path, "wb") as f:
+            f.write(await file.read())
+            
+        # Extraire le texte
+        raw_text = parse_cv(temp_path)
+        
+        # Invoquer LLM pour structurer
+        prompt = (
+            "Analyse le document suivant (qui est une fiche de poste) et extrais les informations requises.\n"
+            "Document:\n"
+            "{text}"
+        )
+        job_data = await invoke_structured(prompt_template=prompt, variables={"text": raw_text}, output_schema=JobCreate)
+        return job_data
+    except Exception as e:
+        logger.error(f"Erreur lors de l'extraction de la fiche de poste: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+
 @router.get("/list")
 async def list_jobs(db: AsyncSession = Depends(get_db)):
     """Liste toutes les fiches de poste."""
@@ -66,6 +98,10 @@ async def list_jobs(db: AsyncSession = Depends(get_db)):
             "id": str(j.id),
             "titre": j.titre,
             "entreprise": j.entreprise,
+            "description": j.description,
+            "competences_requises": j.competences_requises or [],
+            "competences_souhaitees": j.competences_souhaitees or [],
+            "formation_requise": j.formation_requise,
             "type_contrat": j.type_contrat,
             "localisation": j.localisation,
             "annees_experience_min": j.annees_experience_min,
@@ -132,6 +168,14 @@ async def update_job(job_id: str, job_data: JobCreate, db: AsyncSession = Depend
 @router.delete("/{job_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_job(job_id: str, db: AsyncSession = Depends(get_db)):
     """Supprime une fiche de poste."""
+    # Suppression en cascade manuelle via ORM pour éviter IntegrityError
+    from models.database import AnalyseModel
+    analyses_result = await db.execute(select(AnalyseModel).where(AnalyseModel.job_id == uuid.UUID(job_id)))
+    analyses = analyses_result.scalars().all()
+    for analyse in analyses:
+        await db.delete(analyse)
+    await db.flush()
+
     result = await db.execute(select(JobModel).where(JobModel.id == uuid.UUID(job_id)))
     job = result.scalar_one_or_none()
     if not job:

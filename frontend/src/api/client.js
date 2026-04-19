@@ -48,6 +48,11 @@ export const cvApi = {
 // ── Fiches de Poste ────────────────────────────────────────
 
 export const jobApi = {
+  extract: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return request('POST', '/jobs/extract', formData, true);
+  },
   create: (data) => request('POST', '/jobs', data),
   list: () => request('GET', '/jobs/list'),
   get: (id) => request('GET', `/jobs/${id}`),
@@ -62,6 +67,20 @@ export const analysisApi = {
   get: (id) => request('GET', `/analysis/${id}`),
   list: () => request('GET', '/analysis/list/all'),
   delete: (id) => request('DELETE', `/analysis/${id}`),
+  downloadPdf: async (id) => {
+    const response = await fetch(`${BASE_URL}/analysis/${id}/pdf`);
+    if (!response.ok) throw new Error('Erreur lors du téléchargement du PDF');
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `rapport_${id}.pdf`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  },
 };
 
 // ── Polling utilitaire ─────────────────────────────────────

@@ -6,8 +6,9 @@ import {
 } from 'recharts';
 import {
   ArrowLeft, AlertTriangle, CheckCircle, XCircle,
-  Clock, Star, TrendingUp, Award, Zap, ChevronDown, ChevronUp
+  Clock, Star, TrendingUp, Award, Zap, ChevronDown, ChevronUp, Download
 } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { analysisApi, pollAnalysis } from '../api/client';
 
 const MATCH_COLORS = {
@@ -139,6 +140,19 @@ export default function Report() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [expandedSection, setExpandedSection] = useState('skills');
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownloadPdf = async () => {
+    setDownloading(true);
+    try {
+      await analysisApi.downloadPdf(id);
+      toast.success('PDF téléchargé avec succès');
+    } catch (err) {
+      toast.error('Erreur téléchargement: ' + err.message);
+    } finally {
+      setDownloading(false);
+    }
+  };
 
   useEffect(() => {
     const stop = pollAnalysis(id, (updated) => {
@@ -229,10 +243,16 @@ export default function Report() {
 
   return (
     <div className="animate-fade-in">
-      {/* ── Back ── */}
-      <button className="btn btn-secondary btn-sm" onClick={() => navigate('/analyses')} style={{ marginBottom: 24 }}>
-        <ArrowLeft size={14} /> Retour aux analyses
-      </button>
+      {/* ── Actions globales ── */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+        <button className="btn btn-secondary btn-sm" onClick={() => navigate('/analyses')}>
+          <ArrowLeft size={14} /> Retour aux analyses
+        </button>
+        <button className="btn btn-primary btn-sm" onClick={handleDownloadPdf} disabled={downloading}>
+          {downloading ? <div className="spinner" style={{ width: 14, height: 14 }} /> : <Download size={14} />}
+          Télécharger le PDF
+        </button>
+      </div>
 
       {/* ── Disclaimer ── */}
       <div className="guardrail-banner" style={{ marginBottom: 24 }}>

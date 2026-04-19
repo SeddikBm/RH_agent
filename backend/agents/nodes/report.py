@@ -35,7 +35,7 @@ class RapportFinal(BaseModel):
 # ── Prompt ────────────────────────────────────────────────
 
 RAPPORT_PROMPT = """
-Tu es un expert RH. Génère un rapport de candidature professionnel et objectif.
+Tu es un auditeur RH strict, littéral et impartial. Ta seule tâche est d'évaluer le candidat en te basant EXCLUSIVEMENT sur les scores obtenus et les points clés du matching ci-dessous. N'INVENTE AUCUNE COMPÉTENCE OU POINT FORT qui ne soit pas explicitement attesté.
 
 POSTE : {job_titre} chez {entreprise}
 CANDIDAT : {nom_candidat}

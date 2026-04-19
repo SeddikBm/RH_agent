@@ -265,3 +265,46 @@ async def delete_analyse(analyse_id: str, db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Analyse non trouvée")
     await db.delete(analyse)
     logger.info(f"🗑️  Analyse supprimée: {analyse_id}")
+
+@router.get("/{analyse_id}/pdf")
+async def get_analyse_pdf(analyse_id: str, db: AsyncSession = Depends(get_db)):
+    """Génère et télécharge le rapport d'analyse au format PDF."""
+    from services.pdf_generator import generate_analysis_pdf
+    import io
+
+    result = await db.execute(
+        select(AnalyseModel).where(AnalyseModel.id == uuid.UUID(analyse_id))
+    )
+    analyse = result.scalar_one_or_none()
+    if not analyse:
+        raise HTTPException(status_code=404, detail="Analyse non trouvée")
+        
+    if analyse.statut != "termine" or not analyse.rapport:
+        raise HTTPException(status_code=400, detail="L'analyse n'est pas terminée ou ne contient pas de rapport")
+
+    # Récupérer les noms
+    cv_result = await db.execute(select(CVModel).where(CVModel.id == analyse.cv_id))
+    cv = cv_result.scalar_one_or_none()
+    job_result = await db.execute(select(JobModel).where(JobModel.id == analyse.job_id))
+    job = job_result.scalar_one_or_none()
+
+    cv_name = "Candidat Inconnu"
+    if cv and cv.structure:
+        cv_name = cv.structure.get("nom_complet", "Candidat Inconnu")
+    elif cv:
+        cv_name = cv.nom_fichier
+
+    job_title = job.titre if job else "Poste Inconnu"
+
+    # Générer le PDF
+    pdf_bytes = generate_analysis_pdf(
+        analyse={"rapport": analyse.rapport},
+        cv_name=cv_name,
+        job_title=job_title
+    )
+
+    return StreamingResponse(
+        io.BytesIO(pdf_bytes),
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="rapport_{analyse_id}.pdf"'}
+    )

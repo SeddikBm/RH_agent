@@ -45,24 +45,25 @@ class CVExtractedData(BaseModel):
 # ── Prompt ────────────────────────────────────────────────
 
 EXTRACTION_PROMPT = """
-Analyse le CV suivant et extrais toutes les informations pertinentes.
+Tu es un auditeur RH strict, littéral et impartial. Ta seule tâche est d'évaluer le candidat en te basant EXCLUSIVEMENT sur le texte brut extrait de son CV fourni dans le contexte. N'INVENTE RIEN, NE DÉDUIS RIEN qui ne soit pas explicitement écrit.
 
 CV à analyser :
 ---
 {cv_text}
 ---
 
-Extrais avec précision :
+Extrais avec une précision absolue :
 1. Les informations de contact (nom, email, téléphone)
-2. Le titre professionnel actuel ou recherché
-3. Le nombre d'années d'expérience totales (approximatif)
-4. Toutes les compétences techniques (langages, frameworks, outils, technologies)
-5. Les soft skills mentionnés (communication, leadership, travail en équipe, etc.)
+2. Le titre professionnel actuel ou recherché (si mentionné)
+3. Le nombre d'années d'expérience totales (approximatif, basé uniquement sur les dates)
+4. Toutes les compétences techniques (langages, frameworks, outils, technologies) PRÉSENTES DANS LE TEXTE.
+5. Les soft skills mentionnés explicitement (communication, leadership, travail en équipe, etc.)
 6. Les langues parlées avec niveau si précisé
-7. Les certifications et formations complémentaires
+7. Les certifications et formations complémentaires trouvées
 8. Le niveau et domaine de formation (Bac+2, Licence, Master, Doctorat, etc.)
-9. Un résumé du profil en 2-3 phrases
+9. Un résumé du profil en 2-3 phrases purement factuel.
 
+Si une information est absente, laisse-la vide ou indique null. Ne fais aucune supposition.
 Réponds en JSON conforme au schéma fourni.
 """
 

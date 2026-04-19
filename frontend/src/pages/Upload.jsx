@@ -2,9 +2,8 @@ import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
-import {
-  Upload as UploadIcon, FileText, X, CheckCircle,
-  Briefcase, Zap, AlertCircle, Loader2
+import { Upload as UploadIcon, FileText, X, CheckCircle,
+  Briefcase, Zap, AlertCircle, Loader2, UploadCloud
 } from 'lucide-react';
 import { cvApi, jobApi, analysisApi } from '../api/client';
 
@@ -38,6 +37,46 @@ export default function Upload() {
 
   // Étape 3 : Analyse
   const [launching, setLaunching] = useState(false);
+
+  // Étape 2 bis : Extraction Job
+  const [extractingJob, setExtractingJob] = useState(false);
+
+  const onDropJob = useCallback(async (acceptedFiles) => {
+    const file = acceptedFiles[0];
+    if (!file) return;
+    setExtractingJob(true);
+    if (!showJobForm) setShowJobForm(true);
+    try {
+      const data = await jobApi.extract(file);
+      setJobForm(prev => ({
+        ...prev,
+        titre: data.titre || '',
+        entreprise: data.entreprise || '',
+        description: data.description || '',
+        competences_requises: (data.competences_requises || []).join(', '),
+        competences_souhaitees: (data.competences_souhaitees || []).join(', '),
+        annees_experience_min: data.annees_experience_min?.toString() || '',
+        formation_requise: data.formation_requise || '',
+        localisation: data.localisation || '',
+        type_contrat: data.type_contrat || '',
+      }));
+      toast.success('Fiche de poste extraite avec succès !');
+    } catch (err) {
+      toast.error('Erreur extraction: ' + err.message);
+    } finally {
+      setExtractingJob(false);
+    }
+  }, [showJobForm]);
+
+  const { getRootProps: getJobRootProps, getInputProps: getJobInputProps, isDragActive: isJobDragActive } = useDropzone({
+    onDrop: onDropJob,
+    accept: {
+      'application/pdf': ['.pdf'],
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+      'text/plain': ['.txt'],
+    },
+    maxFiles: 1,
+  });
 
   // ── Charger les fiches de poste ───────────────────────
   useEffect(() => {
@@ -257,6 +296,34 @@ export default function Upload() {
                 <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: 16 }}>
                   Nouvelle Fiche de Poste
                 </h3>
+                
+                <div
+                  {...getJobRootProps()}
+                  style={{
+                    border: `2px dashed ${isJobDragActive ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                    padding: '20px',
+                    borderRadius: 'var(--radius-md)',
+                    textAlign: 'center',
+                    backgroundColor: isJobDragActive ? 'rgba(99,102,241,0.05)' : 'rgba(255,255,255,0.02)',
+                    cursor: 'pointer',
+                    marginBottom: 20,
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  <input {...getJobInputProps()} />
+                  {extractingJob ? (
+                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+                        <div className="spinner" style={{ width: 24, height: 24, borderWidth: 3 }}></div>
+                        <span style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>Extraction en cours...</span>
+                     </div>
+                  ) : (
+                    <>
+                      <UploadCloud size={24} color={isJobDragActive ? "var(--color-primary)" : "var(--color-text-muted)"} style={{ marginBottom: 8 }} />
+                      <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: 'var(--color-text-primary)' }}>Déposez un PDF/DOCX pour auto-remplir la fiche</p>
+                    </>
+                  )}
+                </div>
+
                 <div className="grid-2" style={{ gap: 12, marginBottom: 12 }}>
                   <div className="form-group">
                     <label className="form-label">Titre du Poste *</label>

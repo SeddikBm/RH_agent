@@ -8,7 +8,6 @@ from pydantic import BaseModel, Field
 
 from agents.state import AnalysisState
 from services.llm import invoke_structured
-from services.rag import get_relevant_context
 
 
 # ── Schémas Pydantic ──────────────────────────────────────
@@ -37,7 +36,7 @@ class MatchingResult(BaseModel):
 # ── Prompt ────────────────────────────────────────────────
 
 MATCHING_PROMPT = """
-Tu es un expert RH. Compare ce CV avec la fiche de poste suivante.
+Tu es un auditeur RH strict, littéral et impartial. Ta seule tâche est d'évaluer le candidat en te basant EXCLUSIVEMENT sur le texte brut du CV fourni ci-dessous et la fiche de poste. N'INVENTE RIEN. N'utilise aucune information extérieure.
 
 FICHE DE POSTE :
 Titre: {job_titre}
@@ -47,25 +46,31 @@ Compétences souhaitées: {competences_souhaitees}
 Expérience minimale requise: {experience_min} ans
 Formation requise: {formation_requise}
 
-PROFIL DU CANDIDAT (extrait du CV) :
+TEXTE BRUT DU CV (source de vérité unique) :
+---
+{cv_text_brut}
+---
+
+COMPÉTENCES EXTRAITES DU CV :
 Compétences techniques: {competences_cv}
 Soft skills: {soft_skills}
 Années d'expérience: {annees_experience}
 Niveau de formation: {niveau_formation}
 Domaine: {domaine_formation}
 
-CONTEXTE ADDITIONNEL (RAG) :
-{rag_context}
+INSTRUCTIONS IMPORTANTES :
+1. Base-toi UNIQUEMENT sur le texte brut du CV ci-dessus. Tout ce qui n'est pas mentionné explicitement dans ce texte est considéré comme ABSENT.
+2. Pour chaque compétence REQUISE du poste, évalue le niveau de correspondance :
+   - "excellent" : compétence présente et clairement maîtrisée dans le CV
+   - "bon" : compétence présente mais avec une profondeur moindre
+   - "partiel" : compétence partielle ou technologie connexe trouvée
+   - "faible" : compétence vaguement mentionnée ou évoquée indirectement
+   - "absent" : compétence totalement absente du CV
+3. Analyse de l'expérience : Si la fiche de poste indique un STAGE (ex: PFE), ne pénalise pas pour l'absence d'expérience professionnelle. Les projets académiques et personnels sont valides.
+4. Sois précis : "Outils de versioning (Git)" = match avec "Git" dans le CV.
 
-Pour chaque compétence REQUISE du poste, évalue le niveau de correspondance :
-- "excellent" : compétence présente et maîtrisée
-- "bon" : compétence présente mais développement possible
-- "partiel" : compétence partielle ou connexe
-- "faible" : compétence mentionnée mais peu développée
-- "absent" : compétence absente du CV
-
-Analyse aussi l'adéquation de l'expérience et de la formation.
-Réponds en JSON conforme au schéma.
+Analyse l'adéquation globale de l'expérience et de la formation.
+Réponds en JSON strictement conforme au schéma.
 """
 
 
@@ -74,7 +79,7 @@ Réponds en JSON conforme au schéma.
 async def match_job_node(state: AnalysisState) -> dict:
     """
     Étape 2 du pipeline : Matching sémantique CV ↔ Fiche de poste.
-    Utilise le RAG pour enrichir le contexte avant l'appel LLM.
+    Utilise directement le texte brut du CV (source de vérité) pour le matching.
     """
     logger.info(f"🔗 [Nœud 2] Matching CV ↔ Poste | CV: {state['cv_id']}")
 
@@ -83,19 +88,9 @@ async def match_job_node(state: AnalysisState) -> dict:
 
     job = state["job_description"]
     cv_struct = state.get("cv_structure") or {}
+    cv_text = state.get("cv_text", "")
 
-    # ── Enrichissement RAG ────────────────────────────────
-    try:
-        rag_results = await get_relevant_context(
-            query=f"{job.get('titre', '')} {' '.join(job.get('competences_requises', []))}",
-            collection_name="cvs",
-            top_k=3,
-        )
-        rag_context = "\n---\n".join(rag_results[:2]) if rag_results else "Aucun contexte additionnel."
-    except Exception:
-        rag_context = "RAG non disponible."
-
-    # ── Appel LLM ────────────────────────────────────────
+    # ── Appel LLM avec le texte brut du CV ───────────────
     try:
         result = await invoke_structured(
             prompt_template=MATCHING_PROMPT,
@@ -106,12 +101,12 @@ async def match_job_node(state: AnalysisState) -> dict:
                 "competences_souhaitees": ", ".join(job.get("competences_souhaitees", [])),
                 "experience_min": job.get("annees_experience_min", "Non précisé"),
                 "formation_requise": job.get("formation_requise", "Non précisé"),
+                "cv_text_brut": cv_text[:4000],  # Texte brut complet du CV analysé
                 "competences_cv": ", ".join(state.get("extracted_skills", [])),
                 "soft_skills": ", ".join(state.get("soft_skills", [])),
                 "annees_experience": cv_struct.get("annees_experience", "Non précisé"),
                 "niveau_formation": cv_struct.get("niveau_formation", "Non précisé"),
                 "domaine_formation": cv_struct.get("domaine_formation", "Non précisé"),
-                "rag_context": rag_context[:1500],
             },
             output_schema=MatchingResult,
             temperature=0.1,
@@ -125,7 +120,7 @@ async def match_job_node(state: AnalysisState) -> dict:
             "skill_matches": skill_matches,
             "experience_analysis": result.analyse_experience,
             "formation_analysis": result.analyse_formation,
-            "rag_context": rag_results if rag_results else [],
+            "rag_context": [],
         }
 
     except Exception as e:
@@ -137,3 +132,4 @@ async def match_job_node(state: AnalysisState) -> dict:
             "rag_context": [],
             "erreur": f"Erreur matching: {str(e)}",
         }
+
