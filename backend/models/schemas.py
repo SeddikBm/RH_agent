@@ -72,7 +72,7 @@ class JobCreate(BaseModel):
     """Données pour créer une fiche de poste."""
     titre: str = Field(..., min_length=3, max_length=200)
     entreprise: Optional[str] = None
-    description: str = Field(..., min_length=50)
+    description: str = Field(..., min_length=10)
     competences_requises: list[str] = Field(default_factory=list)
     competences_souhaitees: list[str] = Field(default_factory=list)
     annees_experience_min: Optional[int] = Field(None, ge=0, le=50)
@@ -91,10 +91,10 @@ class JobResponse(JobCreate):
         from_attributes = True
 
 
-# ── Analyse ─────────────────────────────────────────────────
+# ── Analyse individuelle ─────────────────────────────────────
 
 class AnalyseLancerRequest(BaseModel):
-    """Requête pour lancer une analyse."""
+    """Requête pour lancer une analyse individuelle (1 CV + 1 Job)."""
     cv_id: UUID
     job_id: UUID
 
@@ -122,9 +122,10 @@ class RapportAnalyse(BaseModel):
     points_forts: list[str] = Field(default_factory=list)
     points_faibles: list[str] = Field(default_factory=list)
     correspondances_competences: list[CorrespondanceCompetence] = Field(default_factory=list)
-    adequation_poste: str  # Texte explicatif de l'adéquation
-    recommandation: str    # Recommandation (entretien, mise en attente, refus)
+    adequation_poste: str
+    recommandation: str
     justification_recommandation: str
+    explication_decision: Optional[str] = None   # Explication lisible du scoring
     disclaimer: str = (
         "⚠️ AVERTISSEMENT : Ce rapport est un outil d'aide à la décision uniquement. "
         "Il ne constitue pas une évaluation définitive d'un candidat et ne remplace "
@@ -141,6 +142,8 @@ class AnalyseResponse(BaseModel):
     statut: StatutAnalyse
     rapport: Optional[RapportAnalyse] = None
     message_erreur: Optional[str] = None
+    rag_scores: Optional[dict] = None
+    rang: Optional[int] = None
     date_creation: datetime
     date_fin: Optional[datetime] = None
     duree_secondes: Optional[float] = None
@@ -163,7 +166,37 @@ class AnalyseListItem(BaseModel):
     recommandation: Optional[str] = None
     nom_candidat: Optional[str] = None
     titre_poste: Optional[str] = None
+    rang: Optional[int] = None
     date_creation: datetime
 
     class Config:
         from_attributes = True
+
+
+# ── Batch Analyse ────────────────────────────────────────────
+
+class BatchAnalyseLancerRequest(BaseModel):
+    """Requête pour lancer une analyse batch (N CVs + 1 Job)."""
+    job_id: UUID
+    cv_ids: list[UUID] = Field(..., min_length=1)
+
+
+class CandidateRanking(BaseModel):
+    """Classement d'un candidat dans un batch."""
+    rang: int
+    cv_id: str
+    nom_candidat: Optional[str] = None
+    score_rag_global: float          # Score pondéré RAG (0-100)
+    scores_sections: dict            # score par section {competences, experience, formation, profil}
+    analyse_id: Optional[str] = None  # ID de l'analyse LangGraph si top 3
+
+
+class BatchAnalyseResponse(BaseModel):
+    """Réponse d'un batch d'analyse."""
+    id: UUID
+    job_id: UUID
+    statut: str
+    classement: list[CandidateRanking] = Field(default_factory=list)
+    top3_analyses: list[AnalyseResponse] = Field(default_factory=list)
+    date_creation: datetime
+    date_fin: Optional[datetime] = None

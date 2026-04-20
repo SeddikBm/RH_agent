@@ -60,8 +60,12 @@ export default function Jobs() {
   useEffect(() => { load(); }, []);
 
   const handleSubmit = async () => {
-    if (!form.titre || !form.description) {
-      toast.error('Titre et description requis');
+    if (!form.titre || form.titre.trim().length < 3) {
+      toast.error('Le titre doit faire au moins 3 caractères');
+      return;
+    }
+    if (!form.description || form.description.trim().length < 10) {
+      toast.error('La description doit faire au moins 10 caractères');
       return;
     }
     setSaving(true);
@@ -82,14 +86,14 @@ export default function Jobs() {
         toast.success('Fiche mise à jour !');
       } else {
         await jobApi.create(payload);
-        toast.success('Fiche créée !');
+        toast.success('Fiche créée ! Indexation en cours en arrière-plan...');
       }
       setShowForm(false);
       setEditingId(null);
       setForm(EMPTY_FORM);
       load();
     } catch (err) {
-      toast.error(err.message);
+      toast.error('Erreur : ' + (err.message || 'Veuillez vérifier les champs'));
     } finally {
       setSaving(false);
     }

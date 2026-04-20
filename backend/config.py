@@ -16,11 +16,13 @@ class Settings(BaseSettings):
 
     # ── LLM : GroqCloud ──────────────────────────────────────
     groq_api_key: str = ""
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = "llama3-8b-8192"
 
-    # ── Embeddings : Ollama local ─────────────────────────────
-    ollama_base_url: str = "http://localhost:11434"
-    ollama_embed_model: str = "mxbai-embed-large"
+    # ── Embeddings : sentence-transformers (local, multilingue) ──
+    embed_model_name: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+
+    # ── ChromaDB (vector store local) ────────────────────────
+    chroma_persist_dir: str = "./data/chroma_db"
 
     # ── Base de données PostgreSQL ────────────────────────────
     database_url: str = "postgresql+asyncpg://hr_agent:hr_agent_pass@localhost:5432/hr_agent_db"
@@ -30,9 +32,6 @@ class Settings(BaseSettings):
     langsmith_api_key: str = ""
     langsmith_project: str = "hr-agent-evaluateur"
     langchain_endpoint: str = "https://api.smith.langchain.com"
-
-    # ── ChromaDB ──────────────────────────────────────────────
-    chroma_persist_dir: str = "./chroma_db"
 
     # ── Fichiers uploadés ─────────────────────────────────────
     upload_dir: str = "./data/uploads"

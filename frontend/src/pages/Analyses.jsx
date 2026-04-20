@@ -46,10 +46,15 @@ export default function Analyses() {
 
   useEffect(() => { load(); }, []);
 
-  const filtered = analyses.filter(a =>
+  const filteredRaw = analyses.filter(a =>
     (a.nom_candidat?.toLowerCase().includes(search.toLowerCase())) ||
     (a.titre_poste?.toLowerCase().includes(search.toLowerCase()))
   );
+
+  const filtered = [...filteredRaw].sort((a, b) => {
+    // Trier par score global décroissant
+    return (b.score_global || 0) - (a.score_global || 0);
+  });
 
   const handleDelete = async (e, id) => {
     e.stopPropagation();

@@ -23,7 +23,6 @@ async def lifespan(app: FastAPI):
 
     # Créer les répertoires nécessaires
     os.makedirs(settings.upload_dir, exist_ok=True)
-    os.makedirs(settings.chroma_persist_dir, exist_ok=True)
 
     # Initialiser les tables PostgreSQL
     await create_tables()
@@ -48,7 +47,7 @@ app = FastAPI(
     title="Agent d'Évaluation de Candidatures RH",
     description=(
         "API d'analyse de CVs et de matching avec des fiches de poste. "
-        "Propulsé par LangGraph, GroqCloud et ChromaDB. "
+        "Propulsé par LangGraph, GroqCloud et PGVector (embeddings par section). "
         "Outil d'aide à la décision — ne remplace pas le jugement humain."
     ),
     version="1.0.0",

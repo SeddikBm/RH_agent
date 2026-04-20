@@ -30,8 +30,8 @@ def get_llm(temperature: float = 0.1) -> ChatGroq:
 
 
 @retry(
-    stop=stop_after_attempt(3),
-    wait=wait_exponential(multiplier=1, min=2, max=10),
+    stop=stop_after_attempt(6),
+    wait=wait_exponential(multiplier=2, min=4, max=30),
     reraise=True,
 )
 async def invoke_structured(
@@ -42,60 +42,35 @@ async def invoke_structured(
 ) -> T:
     """
     Invoque le LLM avec un prompt structuré et parse la réponse
-    selon le schéma Pydantic fourni.
+    selon le schéma Pydantic fourni via la fonction native with_structured_output.
     """
     llm = get_llm(temperature=temperature)
-
-    # Injecter le schéma directement (évite le conflit de variables {schema_json})
-    schema_json = json.dumps(output_schema.model_json_schema(), indent=2, ensure_ascii=False)
+    structured_llm = llm.with_structured_output(output_schema)
+    
+    from langchain_core.messages import SystemMessage, HumanMessage
+    
     system_content = (
         "Tu es un assistant RH expert dans l'analyse de CVs et de fiches de poste. "
-        "Tu réponds UNIQUEMENT en JSON valide, strictement conforme au schéma fourni. "
-        "Ne génère aucun texte en dehors du JSON.\n\n"
-        "Schéma de réponse attendu :\n" + schema_json
+        "Réponds de manière précise et rigoureuse."
     )
+    
+    human_prompt = ChatPromptTemplate.from_template(prompt_template)
+    formatted_human = human_prompt.format(**variables)
 
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", system_content),
-        ("human", prompt_template),
-    ])
+    messages = [
+        SystemMessage(content=system_content),
+        HumanMessage(content=formatted_human),
+    ]
 
-    # Formater et invoquer
-    formatted_prompt = prompt.format_messages(**variables)
     logger.debug(f"🤖 Appel LLM ({settings.groq_model}) | temp={temperature}")
 
-    response = await llm.ainvoke(formatted_prompt)
-
-    # Parser la réponse JSON
-    raw_text = response.content.strip()
-
-    # Nettoyer les balises markdown si présentes
-    if raw_text.startswith("```"):
-        lines = raw_text.split("\n")
-        # Trouver le début et la fin du bloc JSON
-        start = 1
-        end = len(lines)
-        for i in range(len(lines) - 1, 0, -1):
-            if lines[i].strip() == "```":
-                end = i
-                break
-        raw_text = "\n".join(lines[start:end]).strip()
-
-    # Extraire uniquement le JSON valide (du premier { au dernier })
-    first_brace = raw_text.find("{")
-    last_brace = raw_text.rfind("}")
-    if first_brace != -1 and last_brace != -1:
-        raw_text = raw_text[first_brace:last_brace + 1]
-
     try:
-        parsed_data = json.loads(raw_text)
-    except json.JSONDecodeError as e:
-        logger.error(f"❌ Erreur JSON parsing: {e}\nRaw text: {raw_text[:500]}")
+        response = await structured_llm.ainvoke(messages)
+        logger.debug(f"✅ Réponse LLM parsée avec succès via structured output")
+        return response
+    except Exception as e:
+        logger.error(f"❌ Erreur invoke_structured: {e}")
         raise
-
-    result = output_schema(**parsed_data)
-    logger.debug(f"✅ Réponse LLM parsée avec succès")
-    return result
 
 
 async def invoke_text(

@@ -1,91 +1,49 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
-import toast from 'react-hot-toast';
-import { Upload as UploadIcon, FileText, X, CheckCircle,
-  Briefcase, Zap, AlertCircle, Loader2, UploadCloud
+import {
+  Upload as UploadIcon, FileText, Briefcase, Play, X, CheckCircle,
+  ChevronRight, Loader, Trophy, Medal, Award, TrendingUp
 } from 'lucide-react';
-import { cvApi, jobApi, analysisApi } from '../api/client';
+import toast from 'react-hot-toast';
+import { cvApi, jobApi, analysisApi, pollBatch } from '../api/client';
 
-// ── Étapes du pipeline ────────────────────────────────────
 const STEPS = [
-  { id: 1, label: 'Upload CV' },
-  { id: 2, label: 'Fiche de Poste' },
-  { id: 3, label: 'Lancer Analyse' },
+  { id: 1, label: 'Fiche de Poste', icon: Briefcase },
+  { id: 2, label: 'CVs Candidats', icon: FileText },
+  { id: 3, label: 'Résultats', icon: Trophy },
+];
+
+const RANK_ICONS = [
+  { icon: Trophy, color: '#f59e0b' },
+  { icon: Medal, color: '#94a3b8' },
+  { icon: Award, color: '#cd7f32' },
 ];
 
 export default function Upload() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-
-  // Étape 1 : Upload CV
-  const [uploadedFile, setUploadedFile] = useState(null);
-  const [cvRecord, setCvRecord] = useState(null);
-  const [uploading, setUploading] = useState(false);
-
-  // Étape 2 : Sélection ou création de fiche de poste
   const [jobs, setJobs] = useState([]);
-  const [selectedJobId, setSelectedJobId] = useState(null);
-  const [showJobForm, setShowJobForm] = useState(false);
-  const [jobForm, setJobForm] = useState({
-    titre: '', entreprise: '', description: '',
-    competences_requises: '', competences_souhaitees: '',
-    annees_experience_min: '', formation_requise: '',
-    localisation: '', type_contrat: '',
-  });
-  const [savingJob, setSavingJob] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState('');
+  const [cvFiles, setCvFiles] = useState([]); // [{file, status, cvId, name}]
+  const [uploading, setUploading] = useState(false);
+  const [analyzing, setAnalyzing] = useState(false);
+  const [batchResult, setBatchResult] = useState(null);
 
-  // Étape 3 : Analyse
-  const [launching, setLaunching] = useState(false);
-
-  // Étape 2 bis : Extraction Job
-  const [extractingJob, setExtractingJob] = useState(false);
-
-  const onDropJob = useCallback(async (acceptedFiles) => {
-    const file = acceptedFiles[0];
-    if (!file) return;
-    setExtractingJob(true);
-    if (!showJobForm) setShowJobForm(true);
-    try {
-      const data = await jobApi.extract(file);
-      setJobForm(prev => ({
-        ...prev,
-        titre: data.titre || '',
-        entreprise: data.entreprise || '',
-        description: data.description || '',
-        competences_requises: (data.competences_requises || []).join(', '),
-        competences_souhaitees: (data.competences_souhaitees || []).join(', '),
-        annees_experience_min: data.annees_experience_min?.toString() || '',
-        formation_requise: data.formation_requise || '',
-        localisation: data.localisation || '',
-        type_contrat: data.type_contrat || '',
-      }));
-      toast.success('Fiche de poste extraite avec succès !');
-    } catch (err) {
-      toast.error('Erreur extraction: ' + err.message);
-    } finally {
-      setExtractingJob(false);
-    }
-  }, [showJobForm]);
-
-  const { getRootProps: getJobRootProps, getInputProps: getJobInputProps, isDragActive: isJobDragActive } = useDropzone({
-    onDrop: onDropJob,
-    accept: {
-      'application/pdf': ['.pdf'],
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
-      'text/plain': ['.txt'],
-    },
-    maxFiles: 1,
-  });
-
-  // ── Charger les fiches de poste ───────────────────────
   useEffect(() => {
-    jobApi.list().then(setJobs).catch(console.error);
+    jobApi.list().then(setJobs).catch(() => toast.error('Erreur chargement des postes'));
   }, []);
 
-  // ── Drag & Drop ───────────────────────────────────────
+  // ── Dropzone multi-fichiers ───────────────────────────────
   const onDrop = useCallback((acceptedFiles) => {
-    if (acceptedFiles.length > 0) setUploadedFile(acceptedFiles[0]);
+    const newFiles = acceptedFiles.map(f => ({
+      file: f,
+      name: f.name,
+      status: 'pending', // pending | uploading | done | error
+      cvId: null,
+      error: null,
+    }));
+    setCvFiles(prev => [...prev, ...newFiles]);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -95,463 +53,522 @@ export default function Upload() {
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
       'text/plain': ['.txt'],
     },
-    maxFiles: 1,
-    maxSize: 10 * 1024 * 1024,
+    multiple: true,
   });
 
-  // ── Upload du CV ─────────────────────────────────────
-  const handleUploadCV = async () => {
-    if (!uploadedFile) return;
+  const removeFile = (idx) => {
+    setCvFiles(prev => prev.filter((_, i) => i !== idx));
+  };
+
+  // ── Upload de tous les CVs ────────────────────────────────
+  const uploadAllCVs = async () => {
+    const pending = cvFiles.filter(f => f.status === 'pending');
+    if (!pending.length) return;
+
     setUploading(true);
+    const updated = [...cvFiles];
+
+    for (let i = 0; i < updated.length; i++) {
+      if (updated[i].status !== 'pending') continue;
+      updated[i] = { ...updated[i], status: 'uploading' };
+      setCvFiles([...updated]);
+
+      try {
+        const res = await cvApi.upload(updated[i].file);
+        updated[i] = { ...updated[i], status: 'done', cvId: res.id };
+      } catch (err) {
+        updated[i] = { ...updated[i], status: 'error', error: err.message };
+      }
+      setCvFiles([...updated]);
+    }
+
+    setUploading(false);
+    const successCount = updated.filter(f => f.status === 'done').length;
+    const errCount = updated.filter(f => f.status === 'error').length;
+    if (successCount > 0) toast.success(`${successCount} CV(s) uploadé(s) avec succès`);
+    if (errCount > 0) toast.error(`${errCount} CV(s) en erreur`);
+  };
+
+  // ── Lancer l'analyse batch ────────────────────────────────
+  const launchBatch = async () => {
+    const readyCvs = cvFiles.filter(f => f.status === 'done' && f.cvId);
+    if (!selectedJobId) { toast.error('Sélectionnez une fiche de poste'); return; }
+    if (!readyCvs.length) { toast.error('Au moins 1 CV doit être uploadé'); return; }
+
+    setAnalyzing(true);
     try {
-      const record = await cvApi.upload(uploadedFile);
-      setCvRecord(record);
-      toast.success('CV uploadé avec succès !');
-      setStep(2);
+      const { batch_id } = await analysisApi.runBatch(selectedJobId, readyCvs.map(f => f.cvId));
+      setStep(3);
+
+      pollBatch(batch_id, (data) => {
+        setBatchResult(data);
+        if (data.statut === 'termine') {
+          setAnalyzing(false);
+          toast.success('Analyse terminée !');
+        } else if (data.statut === 'erreur') {
+          setAnalyzing(false);
+          toast.error('Erreur lors de l\'analyse');
+        }
+      });
     } catch (err) {
-      toast.error(err.message || 'Erreur lors de l\'upload');
-    } finally {
-      setUploading(false);
+      toast.error('Erreur lancement: ' + err.message);
+      setAnalyzing(false);
     }
   };
 
-  // ── Créer une fiche de poste ──────────────────────────
-  const handleSaveJob = async () => {
-    if (!jobForm.titre || !jobForm.description) {
-      toast.error('Le titre et la description sont requis');
-      return;
-    }
-    setSavingJob(true);
-    try {
-      const payload = {
-        ...jobForm,
-        competences_requises: jobForm.competences_requises
-          ? jobForm.competences_requises.split(',').map(s => s.trim()).filter(Boolean)
-          : [],
-        competences_souhaitees: jobForm.competences_souhaitees
-          ? jobForm.competences_souhaitees.split(',').map(s => s.trim()).filter(Boolean)
-          : [],
-        annees_experience_min: jobForm.annees_experience_min
-          ? parseInt(jobForm.annees_experience_min)
-          : null,
-      };
-      const newJob = await jobApi.create(payload);
-      setJobs(prev => [newJob, ...prev]);
-      setSelectedJobId(newJob.id);
-      setShowJobForm(false);
-      toast.success('Fiche de poste créée !');
-    } catch (err) {
-      toast.error(err.message || 'Erreur création fiche');
-    } finally {
-      setSavingJob(false);
-    }
-  };
+  const selectedJob = jobs.find(j => j.id === selectedJobId);
+  const readyCount = cvFiles.filter(f => f.status === 'done').length;
+  const canAnalyze = selectedJobId && readyCount > 0;
 
-  // ── Lancer l'analyse ──────────────────────────────────
-  const handleLaunchAnalysis = async () => {
-    if (!cvRecord?.id || !selectedJobId) {
-      toast.error('Sélectionnez un CV et une fiche de poste');
-      return;
-    }
-    setLaunching(true);
-    try {
-      const analyse = await analysisApi.run(cvRecord.id, selectedJobId);
-      toast.success('Analyse lancée ! Redirection en cours...');
-      setTimeout(() => navigate(`/analyses/${analyse.id}`), 1000);
-    } catch (err) {
-      toast.error(err.message || 'Erreur lancement analyse');
-      setLaunching(false);
-    }
-  };
-
+  // ── Render ────────────────────────────────────────────────
   return (
-    <div className="animate-fade-in" style={{ maxWidth: 800, margin: '0 auto' }}>
+    <div className="animate-fade-in">
       <div className="page-header">
-        <h1 className="page-title">Analyser un CV</h1>
-        <p className="page-subtitle">
-          Uploadez un CV et sélectionnez une fiche de poste pour lancer l'analyse IA
-        </p>
+        <h1 className="page-title">Analyse par Poste</h1>
+        <p className="page-subtitle">Déposez vos CVs pour ce poste — le système identifie les meilleurs profils</p>
       </div>
 
-      {/* ── Pipeline Steps ── */}
-      <div className="pipeline-steps" style={{ marginBottom: 40 }}>
-        {STEPS.map((s, i) => (
-          <div
-            key={s.id}
-            className={`pipeline-step ${step === s.id ? 'active' : step > s.id ? 'done' : ''}`}
-          >
-            <div className="pipeline-step-dot">
-              {step > s.id ? '✓' : s.id}
+      {/* ── Stepper ── */}
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 36, gap: 0 }}>
+        {STEPS.map((s, idx) => {
+          const Icon = s.icon;
+          const isActive = step === s.id;
+          const isDone = step > s.id;
+          return (
+            <div key={s.id} style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
+              <div style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                opacity: isDone || isActive ? 1 : 0.4,
+                transition: 'opacity 0.3s',
+              }}>
+                <div style={{
+                  width: 36, height: 36, borderRadius: '50%',
+                  background: isDone ? 'var(--color-success)' : isActive ? 'var(--gradient-primary)' : 'var(--color-bg-secondary)',
+                  border: `2px solid ${isDone ? 'var(--color-success)' : isActive ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'all 0.3s',
+                }}>
+                  {isDone
+                    ? <CheckCircle size={16} color="white" />
+                    : <Icon size={16} color={isActive ? 'white' : 'var(--color-text-muted)'} />
+                  }
+                </div>
+                <span style={{
+                  fontSize: 13, fontWeight: isActive ? 700 : 500,
+                  color: isActive ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                }}>
+                  {s.label}
+                </span>
+              </div>
+              {idx < STEPS.length - 1 && (
+                <div style={{
+                  flex: 1, height: 2, margin: '0 16px',
+                  background: step > s.id ? 'var(--color-success)' : 'var(--color-border)',
+                  transition: 'background 0.3s',
+                }} />
+              )}
             </div>
-            <span className="pipeline-step-label">{s.label}</span>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* ══ ÉTAPE 1 : Upload CV ══ */}
+      {/* ══════════════════════════════════════ */}
+      {/* ÉTAPE 1 — Sélection du poste          */}
+      {/* ══════════════════════════════════════ */}
       {step === 1 && (
         <div className="card animate-slide-in">
-          <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 20, color: 'var(--color-text-primary)' }}>
-            📄 Upload du CV
+          <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20, color: 'var(--color-text-primary)' }}>
+            <Briefcase size={18} style={{ marginRight: 8, verticalAlign: 'middle' }} />
+            Sélectionnez la fiche de poste
           </h2>
 
-          {!uploadedFile ? (
-            <div
-              {...getRootProps()}
-              className={`upload-zone ${isDragActive ? 'drag-active' : ''}`}
-            >
-              <input {...getInputProps()} />
-              <div className="upload-zone-icon">
-                <UploadIcon size={32} />
-              </div>
-              <div className="upload-zone-title">
-                {isDragActive ? '📥 Déposez le fichier ici' : 'Glissez-déposez votre CV ici'}
-              </div>
-              <p className="upload-zone-subtitle">
-                ou <span style={{ color: 'var(--color-primary-light)', fontWeight: 600 }}>cliquez pour parcourir</span>
-              </p>
-              <p style={{ fontSize: 12, color: 'var(--color-text-muted)', marginTop: 12 }}>
-                PDF, DOCX ou TXT · Max 10 MB
-              </p>
+          {jobs.length === 0 ? (
+            <div className="empty-state" style={{ padding: '32px 0' }}>
+              <div className="empty-state-icon">📋</div>
+              <div className="empty-state-title">Aucune fiche de poste</div>
+              <p className="empty-state-text">Créez une fiche de poste avant de lancer une analyse</p>
+              <button className="btn btn-primary" style={{ marginTop: 12 }} onClick={() => navigate('/postes')}>
+                Créer une fiche de poste
+              </button>
             </div>
           ) : (
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 16, padding: 20,
-              background: 'rgba(99,102,241,0.06)', border: '1px solid var(--color-border-bright)',
-              borderRadius: 'var(--radius-lg)',
-            }}>
-              <FileText size={40} color="var(--color-primary-light)" />
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--color-text-primary)' }}>
-                  {uploadedFile.name}
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--color-text-muted)', marginTop: 2 }}>
-                  {(uploadedFile.size / 1024).toFixed(0)} KB
-                </div>
-              </div>
-              <button
-                className="btn btn-icon btn-secondary"
-                onClick={() => setUploadedFile(null)}
-              >
-                <X size={16} />
-              </button>
-            </div>
-          )}
-
-          {uploadedFile && (
-            <button
-              className="btn btn-primary btn-lg"
-              style={{ width: '100%', marginTop: 20 }}
-              onClick={handleUploadCV}
-              disabled={uploading}
-            >
-              {uploading ? (
-                <><div className="spinner" style={{ width: 18, height: 18 }} /> Analyse en cours...</>
-              ) : (
-                <><CheckCircle size={18} /> Valider et continuer</>
-              )}
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* ══ ÉTAPE 2 : Fiche de Poste ══ */}
-      {step === 2 && (
-        <div className="animate-slide-in" style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          {/* CV Validé */}
-          <div style={{
-            display: 'flex', alignItems: 'center', gap: 12, padding: '12px 16px',
-            background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.2)',
-            borderRadius: 'var(--radius-md)',
-          }}>
-            <CheckCircle size={18} color="var(--color-success)" />
-            <span style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>
-              CV uploadé : <strong style={{ color: 'var(--color-text-primary)' }}>{uploadedFile?.name}</strong>
-            </span>
-          </div>
-
-          <div className="card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-              <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--color-text-primary)' }}>
-                <Briefcase size={18} style={{ display: 'inline', verticalAlign: 'middle', marginRight: 8 }} />
-                Sélectionner une Fiche de Poste
-              </h2>
-              <button
-                className="btn btn-secondary btn-sm"
-                onClick={() => setShowJobForm(!showJobForm)}
-              >
-                {showJobForm ? 'Annuler' : '+ Nouvelle fiche'}
-              </button>
-            </div>
-
-            {/* Formulaire nouvelle fiche */}
-            {showJobForm && (
-              <div style={{
-                background: 'rgba(99,102,241,0.05)',
-                border: '1px solid var(--color-border)',
-                borderRadius: 'var(--radius-md)',
-                padding: 20,
-                marginBottom: 20,
-              }}>
-                <h3 style={{ fontSize: 14, fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: 16 }}>
-                  Nouvelle Fiche de Poste
-                </h3>
-                
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 24 }}>
+              {jobs.map(job => (
                 <div
-                  {...getJobRootProps()}
+                  key={job.id}
+                  onClick={() => setSelectedJobId(job.id)}
                   style={{
-                    border: `2px dashed ${isJobDragActive ? 'var(--color-primary)' : 'var(--color-border)'}`,
-                    padding: '20px',
-                    borderRadius: 'var(--radius-md)',
-                    textAlign: 'center',
-                    backgroundColor: isJobDragActive ? 'rgba(99,102,241,0.05)' : 'rgba(255,255,255,0.02)',
+                    display: 'flex', alignItems: 'center', gap: 16,
+                    padding: '14px 18px',
+                    border: `2px solid ${selectedJobId === job.id ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                    borderRadius: 'var(--radius-lg)',
                     cursor: 'pointer',
-                    marginBottom: 20,
+                    background: selectedJobId === job.id ? 'rgba(99,102,241,0.08)' : 'var(--color-bg-secondary)',
                     transition: 'all 0.2s',
                   }}
                 >
-                  <input {...getJobInputProps()} />
-                  {extractingJob ? (
-                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
-                        <div className="spinner" style={{ width: 24, height: 24, borderWidth: 3 }}></div>
-                        <span style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>Extraction en cours...</span>
-                     </div>
-                  ) : (
-                    <>
-                      <UploadCloud size={24} color={isJobDragActive ? "var(--color-primary)" : "var(--color-text-muted)"} style={{ marginBottom: 8 }} />
-                      <p style={{ margin: 0, fontSize: 13, fontWeight: 500, color: 'var(--color-text-primary)' }}>Déposez un PDF/DOCX pour auto-remplir la fiche</p>
-                    </>
-                  )}
-                </div>
-
-                <div className="grid-2" style={{ gap: 12, marginBottom: 12 }}>
-                  <div className="form-group">
-                    <label className="form-label">Titre du Poste *</label>
-                    <input
-                      className="form-input"
-                      placeholder="ex: Développeur Full-Stack Senior"
-                      value={jobForm.titre}
-                      onChange={e => setJobForm(p => ({ ...p, titre: e.target.value }))}
-                    />
+                  <div style={{
+                    width: 40, height: 40, borderRadius: 'var(--radius-md)',
+                    background: selectedJobId === job.id ? 'rgba(99,102,241,0.2)' : 'rgba(255,255,255,0.05)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                  }}>
+                    <Briefcase size={18} color={selectedJobId === job.id ? 'var(--color-primary-light)' : 'var(--color-text-muted)'} />
                   </div>
-                  <div className="form-group">
-                    <label className="form-label">Entreprise</label>
-                    <input
-                      className="form-input"
-                      placeholder="ex: TechCorp SAS"
-                      value={jobForm.entreprise}
-                      onChange={e => setJobForm(p => ({ ...p, entreprise: e.target.value }))}
-                    />
-                  </div>
-                </div>
-                <div className="form-group" style={{ marginBottom: 12 }}>
-                  <label className="form-label">Description du Poste *</label>
-                  <textarea
-                    className="form-textarea"
-                    placeholder="Décrivez les missions, le contexte, les responsabilités..."
-                    value={jobForm.description}
-                    onChange={e => setJobForm(p => ({ ...p, description: e.target.value }))}
-                    rows={4}
-                  />
-                </div>
-                <div className="grid-2" style={{ gap: 12, marginBottom: 12 }}>
-                  <div className="form-group">
-                    <label className="form-label">Compétences Requises (séparées par virgule)</label>
-                    <input
-                      className="form-input"
-                      placeholder="ex: React, Python, Docker"
-                      value={jobForm.competences_requises}
-                      onChange={e => setJobForm(p => ({ ...p, competences_requises: e.target.value }))}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Compétences Souhaitées</label>
-                    <input
-                      className="form-input"
-                      placeholder="ex: Kubernetes, GraphQL"
-                      value={jobForm.competences_souhaitees}
-                      onChange={e => setJobForm(p => ({ ...p, competences_souhaitees: e.target.value }))}
-                    />
-                  </div>
-                </div>
-                <div className="grid-2" style={{ gap: 12, marginBottom: 12 }}>
-                  <div className="form-group">
-                    <label className="form-label">Expérience Minimale (ans)</label>
-                    <input
-                      className="form-input"
-                      type="number"
-                      placeholder="ex: 3"
-                      value={jobForm.annees_experience_min}
-                      onChange={e => setJobForm(p => ({ ...p, annees_experience_min: e.target.value }))}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="form-label">Formation Requise</label>
-                    <input
-                      className="form-input"
-                      placeholder="ex: Bac+5 Informatique"
-                      value={jobForm.formation_requise}
-                      onChange={e => setJobForm(p => ({ ...p, formation_requise: e.target.value }))}
-                    />
-                  </div>
-                </div>
-                <button
-                  className="btn btn-primary"
-                  onClick={handleSaveJob}
-                  disabled={savingJob}
-                >
-                  {savingJob ? <><div className="spinner" style={{ width: 16, height: 16 }} /> Enregistrement...</> : '✓ Créer la fiche'}
-                </button>
-              </div>
-            )}
-
-            {/* Liste des fiches existantes */}
-            {jobs.length === 0 ? (
-              <div className="empty-state" style={{ padding: '32px 16px' }}>
-                <div className="empty-state-icon">📋</div>
-                <div className="empty-state-title">Aucune fiche de poste</div>
-                <p className="empty-state-text">Créez votre première fiche ci-dessus</p>
-              </div>
-            ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {jobs.map(job => (
-                  <div
-                    key={job.id}
-                    onClick={() => setSelectedJobId(job.id)}
-                    style={{
-                      padding: '14px 16px',
-                      border: `1px solid ${selectedJobId === job.id ? 'var(--color-primary)' : 'var(--color-border)'}`,
-                      borderRadius: 'var(--radius-md)',
-                      cursor: 'pointer',
-                      background: selectedJobId === job.id
-                        ? 'rgba(99,102,241,0.1)' : 'rgba(255,255,255,0.02)',
-                      transition: 'var(--transition-fast)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 12,
-                    }}
-                  >
-                    <div style={{
-                      width: 36, height: 36, borderRadius: 8,
-                      background: selectedJobId === job.id ? 'var(--gradient-primary)' : 'rgba(99,102,241,0.1)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      flexShrink: 0,
-                    }}>
-                      <Briefcase size={16} color={selectedJobId === job.id ? 'white' : 'var(--color-primary-light)'} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-primary)' }}>{job.titre}</div>
+                    <div style={{ fontSize: 12, color: 'var(--color-text-muted)', marginTop: 2 }}>
+                      {[job.entreprise, job.type_contrat, job.localisation].filter(Boolean).join(' · ')}
                     </div>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-primary)' }}>
-                        {job.titre}
-                      </div>
-                      {job.entreprise && (
-                        <div style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>
-                          {job.entreprise} · {job.nb_competences_requises || 0} compétences requises
-                        </div>
-                      )}
-                    </div>
-                    {selectedJobId === job.id && (
-                      <CheckCircle size={20} color="var(--color-primary)" />
+                  </div>
+                  {selectedJobId === job.id && <CheckCircle size={20} color="var(--color-primary-light)" />}
+                </div>
+              ))}
+            </div>
+          )}
+
+          <button
+            className="btn btn-primary"
+            disabled={!selectedJobId}
+            onClick={() => setStep(2)}
+            style={{ width: '100%', justifyContent: 'center' }}
+          >
+            Continuer <ChevronRight size={16} />
+          </button>
+        </div>
+      )}
+
+      {/* ══════════════════════════════════════ */}
+      {/* ÉTAPE 2 — Upload des CVs              */}
+      {/* ══════════════════════════════════════ */}
+      {step === 2 && (
+        <div className="animate-slide-in">
+          {selectedJob && (
+            <div style={{
+              display: 'flex', alignItems: 'center', gap: 12,
+              padding: '10px 16px',
+              background: 'rgba(99,102,241,0.08)',
+              border: '1px solid var(--color-primary)',
+              borderRadius: 'var(--radius-md)',
+              marginBottom: 20,
+            }}>
+              <Briefcase size={16} color="var(--color-primary-light)" />
+              <span style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>Poste sélectionné :</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-text-primary)' }}>{selectedJob.titre}</span>
+              <button
+                className="btn btn-secondary btn-sm"
+                style={{ marginLeft: 'auto' }}
+                onClick={() => setStep(1)}
+              >
+                Changer
+              </button>
+            </div>
+          )}
+
+          <div className="card" style={{ marginBottom: 20 }}>
+            <h2 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16, color: 'var(--color-text-primary)' }}>
+              <UploadIcon size={18} style={{ marginRight: 8, verticalAlign: 'middle' }} />
+              Déposez les CVs des candidats
+            </h2>
+
+            {/* Dropzone */}
+            <div
+              {...getRootProps()}
+              style={{
+                border: `2px dashed ${isDragActive ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                borderRadius: 'var(--radius-lg)',
+                padding: '40px 20px',
+                textAlign: 'center',
+                background: isDragActive ? 'rgba(99,102,241,0.06)' : 'var(--color-bg-secondary)',
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                marginBottom: 20,
+              }}
+            >
+              <input {...getInputProps()} />
+              <UploadIcon size={40} color={isDragActive ? 'var(--color-primary-light)' : 'var(--color-text-muted)'} style={{ margin: '0 auto 12px' }} />
+              <p style={{ fontSize: 15, fontWeight: 600, color: 'var(--color-text-primary)', margin: '0 0 4px' }}>
+                {isDragActive ? 'Relâchez pour ajouter' : 'Glissez vos CVs ici'}
+              </p>
+              <p style={{ fontSize: 13, color: 'var(--color-text-muted)', margin: 0 }}>
+                PDF, DOCX ou TXT — plusieurs fichiers acceptés
+              </p>
+            </div>
+
+            {/* Liste des fichiers */}
+            {cvFiles.length > 0 && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 20 }}>
+                {cvFiles.map((f, idx) => (
+                  <div key={idx} style={{
+                    display: 'flex', alignItems: 'center', gap: 12,
+                    padding: '10px 14px',
+                    background: 'var(--color-bg-secondary)',
+                    border: `1px solid ${f.status === 'done' ? 'var(--color-success)' : f.status === 'error' ? 'var(--color-danger)' : 'var(--color-border)'}`,
+                    borderRadius: 'var(--radius-md)',
+                  }}>
+                    <FileText size={16} color={
+                      f.status === 'done' ? 'var(--color-success)' :
+                      f.status === 'error' ? 'var(--color-danger)' :
+                      'var(--color-text-muted)'
+                    } />
+                    <span style={{ flex: 1, fontSize: 13, color: 'var(--color-text-primary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      {f.name}
+                    </span>
+                    {f.status === 'uploading' && <div className="spinner" style={{ width: 14, height: 14, flexShrink: 0 }} />}
+                    {f.status === 'done' && <CheckCircle size={14} color="var(--color-success)" />}
+                    {f.status === 'error' && <span style={{ fontSize: 11, color: 'var(--color-danger)' }}>Erreur</span>}
+                    {f.status === 'pending' && (
+                      <button
+                        onClick={() => removeFile(idx)}
+                        style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+                      >
+                        <X size={14} color="var(--color-text-muted)" />
+                      </button>
                     )}
                   </div>
                 ))}
               </div>
             )}
-          </div>
 
-          <div style={{ display: 'flex', gap: 12 }}>
-            <button className="btn btn-secondary" onClick={() => setStep(1)}>
-              ← Retour
-            </button>
-            <button
-              className="btn btn-primary"
-              style={{ flex: 1 }}
-              onClick={() => selectedJobId && setStep(3)}
-              disabled={!selectedJobId}
-            >
-              Continuer → Lancer l'Analyse
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* ══ ÉTAPE 3 : Confirmation & Lancement ══ */}
-      {step === 3 && (
-        <div className="card animate-slide-in">
-          <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 24 }}>
-            🚀 Prêt à Lancer l'Analyse
-          </h2>
-
-          {/* Récap */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 24 }}>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px',
-              background: 'rgba(99,102,241,0.06)', border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-md)',
-            }}>
-              <FileText size={20} color="var(--color-primary-light)" />
-              <div>
-                <div style={{ fontSize: 11, color: 'var(--color-text-muted)', marginBottom: 2 }}>CV CANDIDAT</div>
-                <div style={{ fontSize: 14, fontWeight: 600 }}>{uploadedFile?.name}</div>
-              </div>
-            </div>
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px',
-              background: 'rgba(6,182,212,0.06)', border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-md)',
-            }}>
-              <Briefcase size={20} color="var(--color-secondary)" />
-              <div>
-                <div style={{ fontSize: 11, color: 'var(--color-text-muted)', marginBottom: 2 }}>FICHE DE POSTE</div>
-                <div style={{ fontSize: 14, fontWeight: 600 }}>
-                  {jobs.find(j => j.id === selectedJobId)?.titre || selectedJobId}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Pipeline preview */}
-          <div style={{
-            background: 'rgba(255,255,255,0.02)', border: '1px solid var(--color-border)',
-            borderRadius: 'var(--radius-md)', padding: 16, marginBottom: 24,
-          }}>
-            <div style={{ fontSize: 12, color: 'var(--color-text-muted)', marginBottom: 12 }}>
-              PIPELINE D'ANALYSE (LangGraph)
-            </div>
-            {['1. Extraction des compétences', '2. Matching CV ↔ Poste (RAG)', '3. Scoring multicritère', '4. Génération du rapport'].map((s, i) => (
-              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                <div style={{
-                  width: 24, height: 24, borderRadius: '50%',
-                  background: 'rgba(99,102,241,0.2)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 11, fontWeight: 700, color: 'var(--color-primary-light)',
-                  flexShrink: 0,
-                }}>
-                  {i + 1}
-                </div>
-                <span style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>{s}</span>
-              </div>
-            ))}
-          </div>
-
-          <div style={{ display: 'flex', gap: 12 }}>
-            <button className="btn btn-secondary" onClick={() => setStep(2)}>
-              ← Retour
-            </button>
-            <button
-              className="btn btn-primary btn-lg"
-              style={{ flex: 1 }}
-              onClick={handleLaunchAnalysis}
-              disabled={launching}
-            >
-              {launching ? (
-                <><div className="spinner" style={{ width: 18, height: 18 }} /> Lancement...</>
-              ) : (
-                <><Zap size={18} /> Lancer l'Analyse IA</>
+            {/* Actions */}
+            <div style={{ display: 'flex', gap: 12 }}>
+              {cvFiles.some(f => f.status === 'pending') && (
+                <button
+                  className="btn btn-secondary"
+                  onClick={uploadAllCVs}
+                  disabled={uploading}
+                  style={{ flex: 1 }}
+                >
+                  {uploading
+                    ? <><div className="spinner" style={{ width: 14, height: 14 }} /> Téléversement...</>
+                    : <><UploadIcon size={14} /> Téléverser les CVs</>
+                  }
+                </button>
               )}
-            </button>
+              <button
+                className="btn btn-primary"
+                onClick={launchBatch}
+                disabled={!canAnalyze || analyzing}
+                style={{ flex: 1, justifyContent: 'center' }}
+              >
+                {analyzing
+                  ? <><div className="spinner" style={{ width: 14, height: 14 }} /> Analyse en cours...</>
+                  : <><Play size={14} fill="white" /> Analyser {readyCount} CV{readyCount > 1 ? 's' : ''}</>
+                }
+              </button>
+            </div>
           </div>
         </div>
       )}
+
+      {/* ══════════════════════════════════════ */}
+      {/* ÉTAPE 3 — Résultats du batch          */}
+      {/* ══════════════════════════════════════ */}
+      {step === 3 && (
+        <div className="animate-slide-in">
+          {(!batchResult || batchResult.statut === 'en_cours') ? (
+            <BatchProgress batchResult={batchResult} />
+          ) : batchResult.statut === 'erreur' ? (
+            <div className="card" style={{ textAlign: 'center', padding: 48 }}>
+              <p style={{ color: 'var(--color-danger)' }}>Erreur: {batchResult.message_erreur}</p>
+              <button className="btn btn-secondary" style={{ marginTop: 16 }} onClick={() => setStep(2)}>
+                Réessayer
+              </button>
+            </div>
+          ) : (
+            <BatchResults batchResult={batchResult} navigate={navigate} onReset={() => { setCvFiles([]); setStep(1); setBatchResult(null); }} />
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+// ── Composant : Progression du batch ──────────────────────
+
+function BatchProgress({ batchResult }) {
+  const progress = batchResult;
+  const ranking = progress?.classement || [];
+
+  return (
+    <div className="card" style={{ textAlign: 'center', padding: '48px 32px' }}>
+      <div style={{
+        width: 72, height: 72, borderRadius: '50%',
+        background: 'var(--gradient-primary)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        margin: '0 auto 20px',
+        animation: 'pulse-glow 2s ease-in-out infinite',
+      }}>
+        <TrendingUp size={32} color="white" />
+      </div>
+      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>Analyse en cours...</h2>
+      <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 32 }}>
+        Le système analyse les CVs et identifie les meilleurs profils.
+      </p>
+
+      {ranking.length > 0 && (
+        <div style={{ maxWidth: 400, margin: '0 auto', textAlign: 'left' }}>
+          <div style={{ fontSize: 12, color: 'var(--color-text-muted)', marginBottom: 8, fontWeight: 600, textTransform: 'uppercase' }}>
+            Classement RAG (préliminaire)
+          </div>
+          {ranking.slice(0, 5).map((item, i) => (
+            <div key={i} style={{
+              display: 'flex', alignItems: 'center', gap: 10,
+              padding: '8px 12px',
+              background: i < 3 ? 'rgba(99,102,241,0.08)' : 'transparent',
+              borderRadius: 'var(--radius-md)',
+              marginBottom: 4,
+            }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-text-muted)', width: 24 }}>#{i + 1}</span>
+              <span style={{ flex: 1, fontSize: 13, color: 'var(--color-text-primary)' }}>
+                {item.nom_candidat || 'Candidat #' + (i + 1)}
+              </span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-primary-light)' }}>
+                {item.score_rag_global?.toFixed(0)}/100
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+
+// ── Composant : Résultats du batch ─────────────────────────
+
+function BatchResults({ batchResult, navigate, onReset }) {
+  const ranking = batchResult?.classement || [];
+  const top3 = batchResult?.top3_analyses || [];
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+        <h2 style={{ fontSize: 18, fontWeight: 700, color: 'var(--color-text-primary)' }}>
+          🏆 Résultats de l'Analyse
+        </h2>
+        <span className="badge badge-success">
+          {ranking.length} CVs classés
+        </span>
+      </div>
+
+      {/* Podium Top 3 */}
+      {top3.length > 0 && (
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 32 }}>
+          {top3.map((analyse, i) => {
+            const { icon: RankIcon, color } = RANK_ICONS[i] || RANK_ICONS[2];
+            const rapport = analyse.rapport;
+            const score = rapport?.scores?.score_global ?? 0;
+            const rec = rapport?.recommandation;
+            return (
+              <div
+                key={analyse.id}
+                className="card"
+                onClick={() => navigate(`/analyses/${analyse.id}`)}
+                style={{
+                  cursor: 'pointer',
+                  border: `2px solid ${i === 0 ? 'rgba(245,158,11,0.4)' : 'var(--color-border)'}`,
+                  transition: 'var(--transition-base)',
+                  position: 'relative',
+                  textAlign: 'center',
+                }}
+                onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--color-border-bright)'}
+                onMouseLeave={e => e.currentTarget.style.borderColor = i === 0 ? 'rgba(245,158,11,0.4)' : 'var(--color-border)'}
+              >
+                <div style={{
+                  position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)',
+                  padding: '2px 10px',
+                  background: 'var(--color-bg-primary)',
+                  border: `2px solid ${color}`,
+                  borderRadius: 20,
+                  fontSize: 12, fontWeight: 700, color,
+                }}>
+                  #{analyse.rang || i + 1}
+                </div>
+                <div style={{
+                  width: 52, height: 52, borderRadius: '50%',
+                  background: `${color}22`, border: `2px solid ${color}`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  margin: '16px auto 12px',
+                }}>
+                  <RankIcon size={24} color={color} />
+                </div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 4 }}>
+                  {analyse.nom_candidat || 'Candidat'}
+                </div>
+                <div style={{ fontSize: 24, fontWeight: 800, color, marginBottom: 4 }}>
+                  {score.toFixed(0)}<span style={{ fontSize: 14, fontWeight: 400, color: 'var(--color-text-muted)' }}>/100</span>
+                </div>
+                {rec && (
+                  <span className={`badge ${rec === 'Entretien recommandé' ? 'badge-success' : rec === 'À considérer' ? 'badge-warning' : 'badge-danger'}`} style={{ fontSize: 10 }}>
+                    {rec}
+                  </span>
+                )}
+                <div style={{ marginTop: 12, fontSize: 11, color: 'var(--color-text-muted)' }}>
+                  Voir le rapport →
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Classement complet */}
+      <div className="card">
+        <h3 style={{ fontSize: 14, fontWeight: 700, marginBottom: 16, color: 'var(--color-text-primary)' }}>
+          Classement Complet — Score RAG pondéré
+        </h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {ranking.map((item, i) => (
+            <div key={i} style={{
+              display: 'grid', gridTemplateColumns: '36px 1fr 80px 80px 80px 80px',
+              alignItems: 'center', gap: 8,
+              padding: '8px 12px',
+              background: i < 3 ? 'rgba(99,102,241,0.06)' : 'transparent',
+              borderRadius: 'var(--radius-md)',
+              borderLeft: i < 3 ? '3px solid var(--color-primary)' : '3px solid transparent',
+            }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: i < 3 ? 'var(--color-primary-light)' : 'var(--color-text-muted)', textAlign: 'center' }}>
+                #{item.rang}
+              </span>
+              <span style={{ fontSize: 13, color: 'var(--color-text-primary)', fontWeight: i < 3 ? 600 : 400 }}>
+                {item.nom_candidat || 'Candidat'}
+              </span>
+              <ScoreCell label="Tech" value={item.scores_sections?.competences} />
+              <ScoreCell label="Exp" value={item.scores_sections?.experience} />
+              <ScoreCell label="Form" value={item.scores_sections?.formation} />
+              <span style={{ fontSize: 14, fontWeight: 800, color: item.score_rag_global >= 70 ? 'var(--color-success)' : item.score_rag_global >= 50 ? 'var(--color-warning)' : 'var(--color-danger)', textAlign: 'right' }}>
+                {item.score_rag_global?.toFixed(0)}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: '36px 1fr 80px 80px 80px 80px', gap: 8, padding: '6px 12px', marginTop: 8, borderTop: '1px solid var(--color-border)' }}>
+          <span /><span style={{ fontSize: 11, color: 'var(--color-text-muted)', fontWeight: 600 }}>Candidat</span>
+          <span style={{ fontSize: 10, color: 'var(--color-text-muted)', textAlign: 'center' }}>Tech 40%</span>
+          <span style={{ fontSize: 10, color: 'var(--color-text-muted)', textAlign: 'center' }}>Exp 30%</span>
+          <span style={{ fontSize: 10, color: 'var(--color-text-muted)', textAlign: 'center' }}>Form 20%</span>
+          <span style={{ fontSize: 11, color: 'var(--color-text-muted)', fontWeight: 600, textAlign: 'right' }}>Score</span>
+        </div>
+      </div>
+
+      <button
+        className="btn btn-secondary"
+        style={{ marginTop: 20 }}
+        onClick={onReset}
+      >
+        Nouvelle Analyse
+      </button>
+    </div>
+  );
+}
+
+function ScoreCell({ label, value }) {
+  const v = value ?? 0;
+  const color = v >= 70 ? 'var(--color-success)' : v >= 50 ? 'var(--color-warning)' : 'var(--color-danger)';
+  return (
+    <div style={{ textAlign: 'center' }}>
+      <div style={{ fontSize: 12, fontWeight: 700, color }}>{v.toFixed(0)}</div>
     </div>
   );
 }

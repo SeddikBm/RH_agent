@@ -1,7 +1,7 @@
 
 services:
   # ─────────────────────────────────────
-  # PostgreSQL — Base de données
+  # PostgreSQL — Base de données (standard, sans pgvector)
   # ─────────────────────────────────────
   db:
     image: postgres:16-alpine
@@ -22,20 +22,6 @@ services:
       retries: 5
 
   # ─────────────────────────────────────
-  # Ollama — Embeddings locaux (mxbai-embed-large)
-  # ─────────────────────────────────────
-  ollama:
-    image: ollama/ollama:latest
-    container_name: hr_agent_ollama
-    restart: unless-stopped
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_data:/root/.ollama
-    # Pull le modèle d'embedding au démarrage
-    entrypoint: ["/bin/sh", "-c", "ollama serve & sleep 8 && ollama pull mxbai-embed-large && wait"]
-
-  # ─────────────────────────────────────
   # Backend FastAPI
   # ─────────────────────────────────────
   backend:
@@ -52,13 +38,11 @@ services:
     env_file:
       - .env
     environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
       - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-hr_agent}:${POSTGRES_PASSWORD:-hr_agent_pass}@db:5432/${POSTGRES_DB:-hr_agent_db}
+      - CHROMA_PERSIST_DIR=/app/chroma_db
     depends_on:
       db:
         condition: service_healthy
-      ollama:
-        condition: service_started
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
@@ -81,5 +65,4 @@ services:
 
 volumes:
   pg_data:
-  ollama_data:
   chroma_data:

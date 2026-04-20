@@ -1,0 +1,2 @@
+-- Script d'initialisation PostgreSQL
+-- Plus besoin de l'extension pgvector (les embeddings sont dans ChromaDB)

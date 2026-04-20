@@ -63,10 +63,26 @@ export const jobApi = {
 // ── Analyses ───────────────────────────────────────────────
 
 export const analysisApi = {
+  // Analyse individuelle (compatibilité)
   run: (cvId, jobId) => request('POST', '/analysis/run', { cv_id: cvId, job_id: jobId }),
+
+  // Batch : N CVs × 1 Job → RAG → top 3 → LangGraph
+  runBatch: (jobId, cvIds) => request('POST', '/analysis/run-batch', { job_id: jobId, cv_ids: cvIds }),
+
+  // Consultation d'un batch
+  getBatch: (batchId) => request('GET', `/analysis/batch/${batchId}`),
+
+  // Classement RAG pour un poste
+  ranking: (jobId) => request('GET', `/analysis/ranking/${jobId}`),
+
+  // Analyses filtrées par poste
+  byJob: (jobId) => request('GET', `/analysis/by-job/${jobId}`),
+
+  // Consultation et export
   get: (id) => request('GET', `/analysis/${id}`),
   list: () => request('GET', '/analysis/list/all'),
   delete: (id) => request('DELETE', `/analysis/${id}`),
+
   downloadPdf: async (id) => {
     const response = await fetch(`${BASE_URL}/analysis/${id}/pdf`);
     if (!response.ok) throw new Error('Erreur lors du téléchargement du PDF');
@@ -87,10 +103,6 @@ export const analysisApi = {
 
 /**
  * Poll l'état d'une analyse jusqu'à ce qu'elle soit terminée ou en erreur.
- * @param {string} analyseId
- * @param {function} onUpdate - appelé à chaque mise à jour
- * @param {number} intervalMs - intervalle de polling en ms
- * @returns {function} stopPolling - fonction pour arrêter le polling
  */
 export function pollAnalysis(analyseId, onUpdate, intervalMs = 2000) {
   let stopped = false;
@@ -109,6 +121,28 @@ export function pollAnalysis(analyseId, onUpdate, intervalMs = 2000) {
   };
 
   poll();
+  return () => { stopped = true; };
+}
 
+/**
+ * Poll l'état d'un batch jusqu'à ce qu'il soit terminé ou en erreur.
+ */
+export function pollBatch(batchId, onUpdate, intervalMs = 3000) {
+  let stopped = false;
+
+  const poll = async () => {
+    if (stopped) return;
+    try {
+      const data = await analysisApi.getBatch(batchId);
+      onUpdate(data);
+      if (data.statut === 'en_cours') {
+        setTimeout(poll, intervalMs);
+      }
+    } catch (err) {
+      console.error('Erreur polling batch:', err);
+    }
+  };
+
+  poll();
   return () => { stopped = true; };
 }

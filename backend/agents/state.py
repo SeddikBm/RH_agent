@@ -1,40 +1,40 @@
 """
-LangGraph — Définition de l'état du pipeline d'analyse.
+LangGraph — État du pipeline d'analyse RH.
 """
 from typing import Any, Optional
 from typing_extensions import TypedDict
 
 
 class AnalysisState(TypedDict):
-    """
-    État partagé entre tous les nœuds du pipeline LangGraph.
-    Contient toutes les données nécessaires à l'analyse complète.
-    """
+    """État partagé entre tous les nœuds du pipeline LangGraph."""
 
-    # ── Entrées ───────────────────────────────────────────
-    cv_id: str                          # UUID du CV
-    job_id: str                         # UUID de la fiche de poste
-    cv_text: str                        # Texte brut du CV
-    job_description: dict               # Données de la fiche de poste
+    # ── Entrées ──────────────────────────────────────────────
+    cv_id: str
+    job_id: str
+    cv_text: str
+    cv_structure: dict          # Structure pré-parsée du CV (depuis la DB)
+    job_description: dict
 
-    # ── Résultats intermédiaires ──────────────────────────
-    cv_structure: Optional[dict]        # CV parsé et structuré (Étape 1)
-    extracted_skills: list[str]         # Compétences extraites du CV
-    soft_skills: list[str]              # Soft skills du candidat
-    rag_context: list[str]              # Contexte RAG pertinent
+    # ── Contexte RAG ─────────────────────────────────────────
+    rag_scores: Optional[dict]          # Scores de similarité par section
+    section_contexts: Optional[dict]    # Textes des sections CV (pour le prompt)
 
-    # ── Résultats du matching (Étape 2) ──────────────────
-    skill_matches: list[dict]           # Correspondances compétence par compétence
-    experience_analysis: Optional[str]  # Analyse de l'expérience
-    formation_analysis: Optional[str]   # Analyse de la formation
+    # ── Résultats intermédiaires ─────────────────────────────
+    extracted_skills: list[str]
+    soft_skills: list[str]
 
-    # ── Scores (Étape 3) ──────────────────────────────────
-    scores: Optional[dict]              # Scores par catégorie + global
+    # ── Résultats du matching ─────────────────────────────────
+    skill_matches: list[dict]
+    experience_analysis: Optional[str]
+    formation_analysis: Optional[str]
 
-    # ── Rapport final (Étape 4) ───────────────────────────
-    rapport: Optional[dict]             # Rapport complet structuré
+    # ── Scores ───────────────────────────────────────────────
+    scores: Optional[dict]
 
-    # ── Contrôle du workflow ──────────────────────────────
-    erreur: Optional[str]               # Message d'erreur si échec
-    tentatives_retry: int               # Nombre de tentatives de retry
-    guardrail_valide: bool              # True si le rapport est valide
+    # ── Rapport final ─────────────────────────────────────────
+    rapport: Optional[dict]
+
+    # ── Contrôle du workflow ──────────────────────────────────
+    erreur: Optional[str]
+    tentatives_retry: int
+    guardrail_valide: bool

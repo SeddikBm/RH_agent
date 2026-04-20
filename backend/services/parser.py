@@ -1,11 +1,10 @@
 """
 Service de parsing de CVs — PDF et DOCX.
-Extraction du texte brut et détection des sections principales.
+Extraction du texte brut uniquement.
+Le parsing en sections est effectué par le LLM (voir section_extractor.py).
 """
-import io
 import re
 from pathlib import Path
-from typing import Optional
 
 from loguru import logger
 
@@ -100,78 +99,3 @@ def _clean_text(text: str) -> str:
     text = re.sub(r"\n{3,}", "\n\n", text)
 
     return text.strip()
-
-
-# ── Détection des sections ─────────────────────────────────
-
-SECTION_PATTERNS = {
-    "contact": [
-        r"(?i)(coordonn[eé]es|contact|informations?\s+personnelles?)",
-    ],
-    "profil": [
-        r"(?i)(profil|r[eé]sum[eé]|objectif|pr[eé]sentation|summary|about)",
-    ],
-    "experience": [
-        r"(?i)(exp[eé]riences?\s+professionnelles?|parcours\s+professionnel|"
-        r"employment|work\s+experience|expérience)",
-    ],
-    "formation": [
-        r"(?i)(formation|[eé]ducation|dipl[oô]mes?|[eé]tudes?|cursus|"
-        r"education|academic)",
-    ],
-    "competences": [
-        r"(?i)(comp[eé]tences?|skills?|aptitudes?|savoir-faire|technologies?)",
-    ],
-    "langues": [
-        r"(?i)(langues?|languages?)",
-    ],
-    "certifications": [
-        r"(?i)(certifications?|certificats?|attestations?)",
-    ],
-    "projets": [
-        r"(?i)(projets?|r[eé]alisations?|projects?)",
-    ],
-}
-
-
-def detect_sections(text: str) -> dict[str, Optional[str]]:
-    """
-    Détecte les sections principales d'un CV.
-    Retourne un dictionnaire {section_name: section_text}.
-    """
-    lines = text.split("\n")
-    sections: dict[str, list[str]] = {key: [] for key in SECTION_PATTERNS}
-    sections["autre"] = []
-
-    current_section = "autre"
-
-    for line in lines:
-        # Vérifier si la ligne est un en-tête de section
-        detected = _detect_section_header(line)
-        if detected:
-            current_section = detected
-        else:
-            sections[current_section].append(line)
-
-    # Convertir en texte, supprimer les sections vides
-    result = {}
-    for key, content_lines in sections.items():
-        content = "\n".join(content_lines).strip()
-        if content:
-            result[key] = content
-
-    return result
-
-
-def _detect_section_header(line: str) -> Optional[str]:
-    """Vérifie si une ligne est un en-tête de section connu."""
-    line_stripped = line.strip()
-    if len(line_stripped) < 3 or len(line_stripped) > 60:
-        return None
-
-    for section_name, patterns in SECTION_PATTERNS.items():
-        for pattern in patterns:
-            if re.match(pattern, line_stripped):
-                return section_name
-
-    return None
