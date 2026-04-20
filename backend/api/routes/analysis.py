@@ -4,6 +4,8 @@ import uuid
 from datetime import datetime
 from typing import Optional
 
+from pydantic import BaseModel
+
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from fastapi.responses import StreamingResponse
 from loguru import logger
@@ -97,7 +99,7 @@ async def lancer_batch_analyse(
     """
     Lance une analyse batch : N CVs vs 1 fiche de poste.
     1. RAG section par section → classement de tous les CVs
-    2. Top 3 → pipeline LangGraph complet pour chacun
+    2. Met le batch en statut 'attente_selection'
     Retourne immédiatement le batch_id pour polling.
     """
     # Vérifier le job
@@ -163,16 +165,45 @@ async def _execute_batch(
     cv_ids: list[str],
     job_data: dict,
 ):
-    """Exécute le batch complet en arrière-plan."""
+    """Exécute le batch complet en arrière-plan (seulement RAG pour la v2)."""
     from models.database import AsyncSessionLocal
     from services.rag import get_top_k_candidates
+    from services.section_extractor import extract_cv_sections
+    from services.rag import index_cv_sections
+    import asyncio
 
     start_time = datetime.utcnow()
 
     async with AsyncSessionLocal() as db:
         try:
+            # ── 0. Assurer que tous les CVs sont indexés ────────
+            for cid in cv_ids:
+                cv_result = await db.execute(select(CVModel).where(CVModel.id == uuid.UUID(cid)))
+                cv = cv_result.scalar_one_or_none()
+                if not cv:
+                    continue
+                
+                if not cv.sections:
+                    logger.info(f"⏳ CV {cid[:8]} non indexé, attente ou parsing forcé...")
+                    wait_count = 0
+                    while not cv.sections and wait_count < 20:
+                        await asyncio.sleep(2)
+                        await db.refresh(cv)
+                        wait_count += 2
+                    
+                    if not cv.sections:
+                        try:
+                            logger.warning(f"⚠️ Parsing synchrone forcé pour le CV {cid[:8]}")
+                            sections = await extract_cv_sections(cv.texte_brut)
+                            cv.sections = sections
+                            index_cv_sections(cid, sections)
+                            await db.commit()
+                        except Exception as e:
+                            logger.error(f"❌ Erreur de parsing CV {cid[:8]} : {e}")
+
             # ── 1. RAG : classer tous les CVs ──────────────────
-            ranking, top3 = get_top_k_candidates(job_id, cv_ids, top_k=3)
+            # On prend tout le monde pour le classement (top_k == len(cv_ids))
+            ranking, top_all = get_top_k_candidates(job_id, cv_ids, top_k=len(cv_ids))
 
             # Sauvegarder le classement
             batch_result = await db.execute(
@@ -180,67 +211,14 @@ async def _execute_batch(
             )
             batch = batch_result.scalar_one()
             batch.classement = ranking
-            batch.top3_cv_ids = [r["cv_id"] for r in top3]
-            await db.flush()
-
-            logger.info(f"📊 RAG terminé | Top 3: {[r['cv_id'][:8] for r in top3]}")
-
-            # ── 2. LangGraph pour le top 3 ─────────────────────
-            analyse_tasks = []
-            for item in top3:
-                cv_result = await db.execute(
-                    select(CVModel).where(CVModel.id == uuid.UUID(item["cv_id"]))
-                )
-                cv = cv_result.scalar_one_or_none()
-                if not cv:
-                    continue
-
-                analyse_id = uuid.uuid4()
-                analyse = AnalyseModel(
-                    id=analyse_id,
-                    cv_id=uuid.UUID(item["cv_id"]),
-                    job_id=uuid.UUID(job_id),
-                    statut="en_cours",
-                    rag_scores=item["scores_sections"],
-                    rang=item["rang"],
-                    batch_id=uuid.UUID(batch_id),
-                    date_creation=datetime.utcnow(),
-                )
-                db.add(analyse)
-
-                analyse_tasks.append({
-                    "analyse_id": str(analyse_id),
-                    "cv_id": item["cv_id"],
-                    "cv_text": cv.texte_brut,
-                    "cv_structure": cv.structure or {},
-                    "rag_scores": item["scores_sections"],
-                    "rag_contexts": _extract_section_texts(cv.sections),
-                })
-
-            await db.commit()
-
-            # Exécuter les pipelines LangGraph en parallèle
-            await asyncio.gather(*[
-                _run_single_pipeline(
-                    task["analyse_id"],
-                    task["cv_id"],
-                    job_id,
-                    task["cv_text"],
-                    task["cv_structure"],
-                    job_data,
-                    task["rag_scores"],
-                    task["rag_contexts"],
-                )
-                for task in analyse_tasks
-            ], return_exceptions=True)
-
-            # Marquer le batch comme terminé
-            batch.statut = "termine"
-            batch.date_fin = datetime.utcnow()
+            batch.top3_cv_ids = []  # Sera rempli plus tard lors de la sélection
+            
+            # Ne plus enchaîner l'analyse LangGraph. On met en attente_selection
+            batch.statut = "attente_selection"
             await db.commit()
 
             duree = (datetime.utcnow() - start_time).total_seconds()
-            logger.info(f"✅ Batch terminé: {batch_id[:8]} | {duree:.1f}s")
+            logger.info(f"✅ RAG Batch terminé: {batch_id[:8]} | En attente de sélection | {duree:.1f}s")
 
         except Exception as e:
             logger.error(f"❌ Batch échoué {batch_id[:8]}: {e}")
@@ -262,6 +240,145 @@ def _extract_section_texts(sections: Optional[dict]) -> dict:
     if not sections:
         return {}
     return {k: v for k, v in sections.items() if v}
+
+
+class BatchAnalyseTopRequest(BaseModel):
+    batch_id: str
+    cv_ids: list[str]
+
+
+@router.post("/run-langgraph", status_code=status.HTTP_202_ACCEPTED)
+async def lancer_langgraph_top(
+    request: BatchAnalyseTopRequest,
+    background_tasks: BackgroundTasks,
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Étape 2 : Lance le pipeline LangGraph pour les CVs sélectionnés après le classement.
+    """
+    batch_result = await db.execute(
+        select(BatchAnalyseModel).where(BatchAnalyseModel.id == uuid.UUID(request.batch_id))
+    )
+    batch = batch_result.scalar_one_or_none()
+    if not batch:
+        raise HTTPException(status_code=404, detail="Batch non trouvé")
+
+    job_result = await db.execute(select(JobModel).where(JobModel.id == batch.job_id))
+    job = job_result.scalar_one_or_none()
+    if not job:
+        raise HTTPException(status_code=404, detail="Fiche de poste introuvable")
+
+    batch.statut = "en_cours"
+    batch.top3_cv_ids = request.cv_ids
+    await db.commit()
+
+    job_data = {
+        "titre": job.titre,
+        "entreprise": job.entreprise,
+        "description": job.description,
+        "competences_requises": job.competences_requises or [],
+        "competences_souhaitees": job.competences_souhaitees or [],
+        "annees_experience_min": job.annees_experience_min,
+        "formation_requise": job.formation_requise,
+    }
+
+    background_tasks.add_task(
+        _execute_top_langgraph,
+        batch_id=request.batch_id,
+        job_id=str(batch.job_id),
+        cv_ids=request.cv_ids,
+        job_data=job_data,
+        classement=batch.classement or [],
+    )
+
+    return {"batch_id": request.batch_id, "statut": "en_cours"}
+
+
+async def _execute_top_langgraph(
+    batch_id: str,
+    job_id: str,
+    cv_ids: list[str],
+    job_data: dict,
+    classement: list[dict],
+):
+    from models.database import AsyncSessionLocal
+    import asyncio
+
+    async with AsyncSessionLocal() as db:
+        analyse_tasks = []
+        try:
+            for cid in cv_ids:
+                cv_result = await db.execute(select(CVModel).where(CVModel.id == uuid.UUID(cid)))
+                cv = cv_result.scalar_one_or_none()
+                if not cv:
+                    continue
+
+                ranking_item = next((item for item in classement if str(item["cv_id"]) == cid), None)
+                if not ranking_item:
+                    continue
+
+                analyse_id = uuid.uuid4()
+                analyse = AnalyseModel(
+                    id=analyse_id,
+                    cv_id=uuid.UUID(cid),
+                    job_id=uuid.UUID(job_id),
+                    statut="en_cours",
+                    rag_scores=ranking_item["scores_sections"],
+                    rang=ranking_item["rang"],
+                    batch_id=uuid.UUID(batch_id),
+                    date_creation=datetime.utcnow(),
+                )
+                db.add(analyse)
+
+                analyse_tasks.append({
+                    "analyse_id": str(analyse_id),
+                    "cv_id": cid,
+                    "cv_text": cv.texte_brut,
+                    "cv_structure": cv.structure or {},
+                    "rag_scores": ranking_item["scores_sections"],
+                    "rag_contexts": _extract_section_texts(cv.sections),
+                })
+
+            await db.commit()
+
+            # Exécuter LangGraph Séquentiellement
+            for task in analyse_tasks:
+                try:
+                    await _run_single_pipeline(
+                        task["analyse_id"],
+                        task["cv_id"],
+                        job_id,
+                        task["cv_text"],
+                        task["cv_structure"],
+                        job_data,
+                        task["rag_scores"],
+                        task["rag_contexts"],
+                    )
+                except Exception as exc:
+                    logger.error(f"❌ Pipeline CV {task['cv_id'][:8]} échoué: {exc}")
+                await asyncio.sleep(2)
+
+            batch_res = await db.execute(
+                select(BatchAnalyseModel).where(BatchAnalyseModel.id == uuid.UUID(batch_id))
+            )
+            batch = batch_res.scalar_one()
+            batch.statut = "termine"
+            batch.date_fin = datetime.utcnow()
+            await db.commit()
+
+            logger.info(f"✅ Analyse LangGraph du Batch terminée: {batch_id[:8]}")
+        except Exception as e:
+            logger.error(f"❌ Erreur LangGraph Batch {batch_id[:8]}: {e}")
+            try:
+                b_res = await db.execute(
+                    select(BatchAnalyseModel).where(BatchAnalyseModel.id == uuid.UUID(batch_id))
+                )
+                b = b_res.scalar_one()
+                b.statut = "erreur"
+                b.message_erreur = str(e)
+                await db.commit()
+            except Exception:
+                pass
 
 
 async def _run_single_pipeline(

@@ -1,13 +1,12 @@
 """
-Service LLM — Wrapper autour de GroqCloud via LangChain.
+Service LLM — Wrapper autour de OpenAI via LangChain.
 Fournit des appels structurés (Pydantic output) avec retry.
 """
 import json
 from typing import Optional, Type, TypeVar
 
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import JsonOutputParser
 from loguru import logger
 from pydantic import BaseModel
 from tenacity import retry, stop_after_attempt, wait_exponential
@@ -19,19 +18,19 @@ settings = get_settings()
 T = TypeVar("T", bound=BaseModel)
 
 
-def get_llm(temperature: float = 0.1) -> ChatGroq:
-    """Retourne une instance configurée du LLM GroqCloud."""
-    return ChatGroq(
-        api_key=settings.groq_api_key,
-        model=settings.groq_model,
+def get_llm(temperature: float = 0.1) -> ChatOpenAI:
+    """Retourne une instance configurée du LLM OpenAI."""
+    return ChatOpenAI(
+        api_key=settings.openai_api_key,
+        model=settings.openai_model,
         temperature=temperature,
         max_retries=3,
     )
 
 
 @retry(
-    stop=stop_after_attempt(6),
-    wait=wait_exponential(multiplier=2, min=4, max=30),
+    stop=stop_after_attempt(5),
+    wait=wait_exponential(multiplier=2, min=2, max=10),
     reraise=True,
 )
 async def invoke_structured(
@@ -41,8 +40,8 @@ async def invoke_structured(
     temperature: float = 0.1,
 ) -> T:
     """
-    Invoque le LLM avec un prompt structuré et parse la réponse
-    selon le schéma Pydantic fourni via la fonction native with_structured_output.
+    Invoque le LLM avec un prompt structuré et parse la réponse en JSON
+    via la fonctionnalité native with_structured_output d'OpenAI.
     """
     llm = get_llm(temperature=temperature)
     structured_llm = llm.with_structured_output(output_schema)
@@ -62,11 +61,11 @@ async def invoke_structured(
         HumanMessage(content=formatted_human),
     ]
 
-    logger.debug(f"🤖 Appel LLM ({settings.groq_model}) | temp={temperature}")
+    logger.debug(f"🤖 Appel LLM ({settings.openai_model}) | temp={temperature}")
 
     try:
         response = await structured_llm.ainvoke(messages)
-        logger.debug(f"✅ Réponse LLM parsée avec succès via structured output")
+        logger.debug("✅ Réponse LLM parsée avec succès via structured output OpenAI")
         return response
     except Exception as e:
         logger.error(f"❌ Erreur invoke_structured: {e}")
@@ -94,3 +93,4 @@ async def invoke_text(
     formatted_prompt = prompt.format_messages(**variables)
     response = await llm.ainvoke(formatted_prompt)
     return response.content.strip()
+

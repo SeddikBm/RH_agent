@@ -102,9 +102,12 @@ export default function Upload() {
 
       pollBatch(batch_id, (data) => {
         setBatchResult(data);
-        if (data.statut === 'termine') {
+        if (data.statut === 'attente_selection') {
           setAnalyzing(false);
-          toast.success('Analyse terminée !');
+          toast.success('Classement terminé. Veuillez sélectionner les candidats.');
+        } else if (data.statut === 'termine') {
+          setAnalyzing(false);
+          toast.success('Analyse LangGraph terminée !');
         } else if (data.statut === 'erreur') {
           setAnalyzing(false);
           toast.error('Erreur lors de l\'analyse');
@@ -112,6 +115,20 @@ export default function Upload() {
       });
     } catch (err) {
       toast.error('Erreur lancement: ' + err.message);
+      setAnalyzing(false);
+    }
+  };
+
+  const launchLanggraph = async (selectedIds) => {
+    setAnalyzing(true);
+    try {
+      await analysisApi.runLanggraph(batchResult.id, selectedIds);
+      toast.success('Analyse approfondie lancée en tâche de fond !');
+      // The pollBatch is already running or should we re-initiate?
+      // pollBatch doesn't stop unless component unmounts or we closed it.
+      // We rely on the existing polling.
+    } catch (err) {
+      toast.error('Erreur lancement LangGraph: ' + err.message);
       setAnalyzing(false);
     }
   };
@@ -365,8 +382,8 @@ export default function Upload() {
       {/* ══════════════════════════════════════ */}
       {step === 3 && (
         <div className="animate-slide-in">
-          {(!batchResult || batchResult.statut === 'en_cours') ? (
-            <BatchProgress batchResult={batchResult} />
+          {(!batchResult || (batchResult.statut === 'en_cours' && !batchResult.classement?.length)) ? (
+            <BatchProgress batchResult={batchResult} title="Calcul du classement en cours..." text="Le système parse les CVs, extrait les sections et effectue le matching RAG." />
           ) : batchResult.statut === 'erreur' ? (
             <div className="card" style={{ textAlign: 'center', padding: 48 }}>
               <p style={{ color: 'var(--color-danger)' }}>Erreur: {batchResult.message_erreur}</p>
@@ -374,6 +391,10 @@ export default function Upload() {
                 Réessayer
               </button>
             </div>
+          ) : batchResult.statut === 'attente_selection' ? (
+            <BatchSelection batchResult={batchResult} onLaunch={launchLanggraph} />
+          ) : batchResult.statut === 'en_cours' && batchResult.classement?.length ? (
+            <BatchProgress batchResult={batchResult} title="Analyse approfondie en cours..." text="Le pipeline LangGraph génère les rapports détaillés pour les candidats sélectionnés." />
           ) : (
             <BatchResults batchResult={batchResult} navigate={navigate} onReset={() => { setCvFiles([]); setStep(1); setBatchResult(null); }} />
           )}
@@ -386,7 +407,7 @@ export default function Upload() {
 
 // ── Composant : Progression du batch ──────────────────────
 
-function BatchProgress({ batchResult }) {
+function BatchProgress({ batchResult, title = "Analyse en cours...", text="Veuillez patienter." }) {
   const progress = batchResult;
   const ranking = progress?.classement || [];
 
@@ -401,9 +422,9 @@ function BatchProgress({ batchResult }) {
       }}>
         <TrendingUp size={32} color="white" />
       </div>
-      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>Analyse en cours...</h2>
+      <h2 style={{ fontSize: 20, fontWeight: 700, marginBottom: 8 }}>{title}</h2>
       <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 32 }}>
-        Le système analyse les CVs et identifie les meilleurs profils.
+        {text}
       </p>
 
       {ranking.length > 0 && (
@@ -569,6 +590,89 @@ function ScoreCell({ label, value }) {
   return (
     <div style={{ textAlign: 'center' }}>
       <div style={{ fontSize: 12, fontWeight: 700, color }}>{v.toFixed(0)}</div>
+    </div>
+  );
+}
+
+// ── Composant : Sélection du Top X ─────────────────────────
+
+function BatchSelection({ batchResult, onLaunch }) {
+  const ranking = batchResult?.classement || [];
+  // Par défaut, sélectionner les 3 premiers
+  const [selectedIds, setSelectedIds] = useState(() => ranking.slice(0, 3).map(r => r.cv_id));
+
+  const toggleSelect = (cvId) => {
+    setSelectedIds(prev =>
+      prev.includes(cvId) ? prev.filter(id => id !== cvId) : [...prev, cvId]
+    );
+  };
+
+  return (
+    <div>
+      <div className="card" style={{ marginBottom: 20 }}>
+        <h2 style={{ fontSize: 18, fontWeight: 700, marginBottom: 12, color: 'var(--color-text-primary)' }}>
+          📊 Classement Préliminaire (RAG)
+        </h2>
+        <p style={{ fontSize: 14, color: 'var(--color-text-secondary)', marginBottom: 20 }}>
+          Veuillez sélectionner les candidats à envoyer à l'analyseur approfondi (LangGraph). Par défaut, les 3 meilleurs sont sélectionnés.
+        </p>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {ranking.map((item, i) => {
+            const isSelected = selectedIds.includes(item.cv_id);
+            return (
+              <div
+                key={item.cv_id}
+                onClick={() => toggleSelect(item.cv_id)}
+                style={{
+                  display: 'grid', gridTemplateColumns: '40px 36px 1fr 80px 80px 80px 80px',
+                  alignItems: 'center', gap: 8,
+                  padding: '10px 12px',
+                  background: isSelected ? 'rgba(99,102,241,0.06)' : 'var(--color-bg-secondary)',
+                  borderRadius: 'var(--radius-md)',
+                  border: `1px solid ${isSelected ? 'var(--color-primary)' : 'var(--color-border)'}`,
+                  cursor: 'pointer',
+                  transition: 'background 0.2s',
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{
+                    width: 20, height: 20, borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    border: `2px solid ${isSelected ? 'var(--color-primary)' : 'var(--color-text-muted)'}`,
+                    background: isSelected ? 'var(--color-primary)' : 'transparent',
+                  }}>
+                    {isSelected && <CheckCircle size={14} color="white" />}
+                  </div>
+                </div>
+                <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-text-muted)', textAlign: 'center' }}>
+                  #{item.rang}
+                </span>
+                <span style={{ fontSize: 13, color: 'var(--color-text-primary)', fontWeight: 600 }}>
+                  {item.nom_candidat || 'Candidat'}
+                </span>
+                <ScoreCell label="Tech" value={item.scores_sections?.competences} />
+                <ScoreCell label="Exp" value={item.scores_sections?.experience} />
+                <ScoreCell label="Form" value={item.scores_sections?.formation} />
+                <span style={{ fontSize: 14, fontWeight: 800, color: item.score_rag_global >= 70 ? 'var(--color-success)' : item.score_rag_global >= 50 ? 'var(--color-warning)' : 'var(--color-danger)', textAlign: 'right' }}>
+                  {item.score_rag_global?.toFixed(0)}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <button
+          className="btn btn-primary"
+          disabled={selectedIds.length === 0}
+          onClick={() => onLaunch(selectedIds)}
+          style={{ width: '100%', justifyContent: 'center', fontSize: 15 }}
+        >
+          <Play size={16} fill="white" style={{ marginRight: 8 }}/>
+          Lancer l'analyse approfondie ({selectedIds.length} candidat{selectedIds.length > 1 ? 's' : ''})
+        </button>
+      </div>
     </div>
   );
 }

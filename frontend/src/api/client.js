@@ -66,8 +66,11 @@ export const analysisApi = {
   // Analyse individuelle (compatibilité)
   run: (cvId, jobId) => request('POST', '/analysis/run', { cv_id: cvId, job_id: jobId }),
 
-  // Batch : N CVs × 1 Job → RAG → top 3 → LangGraph
+  // Batch : N CVs × 1 Job → RAG
   runBatch: (jobId, cvIds) => request('POST', '/analysis/run-batch', { job_id: jobId, cv_ids: cvIds }),
+
+  // Lancement LangGraph pour le Top X sélectionné
+  runLanggraph: (batchId, cvIds) => request('POST', '/analysis/run-langgraph', { batch_id: batchId, cv_ids: cvIds }),
 
   // Consultation d'un batch
   getBatch: (batchId) => request('GET', `/analysis/batch/${batchId}`),

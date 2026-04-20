@@ -178,7 +178,7 @@ def search_cvs_by_section(
             results[section_name] = []
             continue
 
-        if not job_section["ids"] or not job_section.get("embeddings"):
+        if not job_section["ids"] or job_section.get("embeddings") is None or len(job_section.get("embeddings")) == 0:
             results[section_name] = []
             continue
 
@@ -203,7 +203,7 @@ def search_cvs_by_section(
             continue
 
         section_results = []
-        if cv_results["ids"] and cv_results["ids"][0]:
+        if cv_results["ids"] and len(cv_results["ids"][0]) > 0:
             for i, _ in enumerate(cv_results["ids"][0]):
                 meta = cv_results["metadatas"][0][i]
                 distance = cv_results["distances"][0][i]

@@ -14,9 +14,9 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # ── LLM : GroqCloud ──────────────────────────────────────
-    groq_api_key: str = ""
-    groq_model: str = "llama3-8b-8192"
+    # ── LLM : OpenAI ─────────────────────────────────────────
+    openai_api_key: str = ""
+    openai_model: str = "gpt-4o-mini"
 
     # ── Embeddings : sentence-transformers (local, multilingue) ──
     embed_model_name: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
