@@ -579,6 +579,29 @@ async def get_ranking(job_id: str, db: AsyncSession = Depends(get_db)):
     return {"classement": latest.classement or [], "batch_id": str(latest.id)}
 
 
+@router.get("/batches/by-job/{job_id}")
+async def list_batches_by_job(job_id: str, db: AsyncSession = Depends(get_db)):
+    """Liste tous les batches d'analyses pour un poste donné, du plus récent au plus ancien."""
+    result = await db.execute(
+        select(BatchAnalyseModel)
+        .where(BatchAnalyseModel.job_id == uuid.UUID(job_id))
+        .order_by(BatchAnalyseModel.date_creation.desc())
+    )
+    batches = result.scalars().all()
+    return [
+        {
+            "id": str(b.id),
+            "job_id": str(b.job_id),
+            "statut": b.statut,
+            "nb_cvs": len(b.cv_ids_soumis or []),
+            "message_erreur": b.message_erreur,
+            "date_creation": b.date_creation.isoformat(),
+            "date_fin": b.date_fin.isoformat() if b.date_fin else None,
+        }
+        for b in batches
+    ]
+
+
 @router.get("/list/all")
 async def list_analyses(db: AsyncSession = Depends(get_db)):
     """Liste toutes les analyses effectuées."""

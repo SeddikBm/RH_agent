@@ -7,6 +7,9 @@ Sections normalisées :
   - experience  : expériences professionnelles, stages, projets
   - formation   : diplômes, certifications
   - profil      : soft skills, langues, résumé, objectif
+
+OPTIMISATION RAG : Les sections CV sont formatées dans un style proche des fiches de poste
+pour maximiser la similarité cosine lors du matching.
 """
 from loguru import logger
 from pydantic import BaseModel, Field
@@ -41,20 +44,32 @@ class JobSections(BaseModel):
 # ── Prompts ───────────────────────────────────────────────────
 
 CV_SECTIONS_PROMPT = """\
-Tu es un parseur de CV expert. Lis attentivement le texte brut du CV ci-dessous
-et extrais son contenu en 4 sections normalisées.
+Tu es un expert RH. Analyse le CV ci-dessous et reformule son contenu en 4 sections structurées
+dans un format semblable à une fiche de poste (listes descriptives, mots-clés techniques).
+L'objectif est que ces sections puissent être comparées sémantiquement avec des fiches de poste.
 
 TEXTE DU CV :
 ---
 {cv_text}
 ---
 
-RÈGLES STRICTES :
-1. Reproduis fidèlement le contenu — ne résume pas, ne modifie pas, n'invente rien.
-2. Si une section est absente du CV, laisse-la vide ("").
-3. Les soft skills et langues vont UNIQUEMENT dans "profil".
-4. Les projets personnels et académiques vont dans "experience".
-5. Les outils, technologies, langages, frameworks vont dans "competences".
+INSTRUCTIONS STRICTES :
+1. Section "competences" : Liste TOUTES les compétences techniques, langages, frameworks, outils, technologies
+   mentionnés dans le CV. Format : liste séparée par des virgules + phrases descriptives.
+   Exemple: "Python, SQL, Django, REST API. Maîtrise du développement backend et des bases de données relationnelles."
+
+2. Section "experience" : Résume les expériences professionnelles, stages et projets.
+   Inclure : durée totale, types de missions effectuées, secteurs, responsabilités.
+   Format : phrases structurées décrivant le type de travail accompli.
+
+3. Section "formation" : Diplômes, niveau d'études, domaines, certifications.
+   Format : "Master/Licence/Bac+X en [domaine], [établissement], [année]"
+
+4. Section "profil" : Soft skills, qualités, langues parlées, niveau de langue, objectifs professionnels.
+   Format : liste de qualités + phrases sur l'objectif.
+
+5. Si une information est absente, laisse la section vide ("").
+6. N'invente RIEN - utilise uniquement ce qui est dans le CV.
 
 Réponds en JSON strictement conforme au schéma.
 """
@@ -72,11 +87,20 @@ COMPÉTENCES SOUHAITÉES : {competences_souhaitees}
 FORMATION REQUISE : {formation_requise}
 EXPÉRIENCE MINIMALE : {experience_min} ans
 
-RÈGLES :
-1. Section "competences" : toutes les compétences techniques requises ET souhaitées.
-2. Section "experience" : type de missions attendues, années requises, contexte.
-3. Section "formation" : niveau de diplôme, domaine, certifications demandées.
-4. Section "profil" : qualités humaines, soft skills, langues requises.
+INSTRUCTIONS :
+1. Section "competences" : Liste TOUTES les compétences techniques requises ET souhaitées.
+   Format : liste séparée par des virgules + phrases descriptives des besoins techniques.
+   Exemple: "Python, SQL, Django, REST API. Maîtrise du développement backend requise."
+
+2. Section "experience" : Type de missions attendues, années requises, contexte du poste.
+   Format : phrases décrivant précisément l'expérience attendue.
+
+3. Section "formation" : Niveau de diplôme, domaine, certifications demandées.
+   Format : "Bac+X en [domaine]" + certifications requises.
+
+4. Section "profil" : Qualités humaines, soft skills, langues requises avec niveau.
+   Format : liste de qualités + langues.
+
 5. Si une information est absente, laisse la section vide ("").
 
 Réponds en JSON strictement conforme au schéma.
@@ -89,12 +113,13 @@ async def extract_cv_sections(cv_text: str) -> dict[str, str]:
     """
     Parse un CV en 4 sections normalisées via LLM.
     Retourne un dict {section_name: content}.
+    Les sections sont formatées pour maximiser la similarité RAG avec les jobs.
     """
-    logger.info("🔍 Extraction sections CV via LLM...")
+    logger.info("🔍 Extraction sections CV via LLM (format structuré)...")
     try:
         result = await invoke_structured(
             prompt_template=CV_SECTIONS_PROMPT,
-            variables={"cv_text": cv_text[:7000]},
+            variables={"cv_text": cv_text[:10000]},
             output_schema=CVSections,
             temperature=0.0,
         )
@@ -109,13 +134,29 @@ async def extract_cv_sections(cv_text: str) -> dict[str, str]:
         return sections
     except Exception as e:
         logger.error(f"❌ Erreur extraction sections CV: {e}")
-        # Fallback : tout le texte dans chaque section pour garantir le RAG
-        return {
-            "competences": cv_text[:2000],
-            "experience": cv_text[:2000],
-            "formation": cv_text[:1000],
-            "profil": cv_text[:1000],
-        }
+        # Fallback structuré : extraire les informations clés du texte brut
+        return _fallback_cv_sections(cv_text)
+
+
+def _fallback_cv_sections(cv_text: str) -> dict[str, str]:
+    """Fallback : sections basiques extraites du texte brut sans LLM."""
+    import re
+
+    # Tentative d'extraire des mots-clés techniques communs
+    tech_keywords = re.findall(
+        r'\b(Python|Java|JavaScript|TypeScript|React|Node|SQL|PostgreSQL|MySQL|'
+        r'MongoDB|Docker|Kubernetes|AWS|Git|Linux|FastAPI|Django|Flask|'
+        r'Machine Learning|Deep Learning|TensorFlow|PyTorch|Pandas|NumPy)\b',
+        cv_text, re.IGNORECASE
+    )
+    competences = ", ".join(set(tech_keywords)) if tech_keywords else cv_text[:2000]
+
+    return {
+        "competences": competences,
+        "experience": cv_text[1000:3000] if len(cv_text) > 1000 else cv_text[:2000],
+        "formation": cv_text[:1000],
+        "profil": cv_text[:1000],
+    }
 
 
 async def extract_job_sections(job_data: dict) -> dict[str, str]:

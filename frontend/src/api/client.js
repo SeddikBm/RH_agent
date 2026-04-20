@@ -81,6 +81,9 @@ export const analysisApi = {
   // Analyses filtrées par poste
   byJob: (jobId) => request('GET', `/analysis/by-job/${jobId}`),
 
+  // Batches (historique) par poste
+  batchesByJob: (jobId) => request('GET', `/analysis/batches/by-job/${jobId}`),
+
   // Consultation et export
   get: (id) => request('GET', `/analysis/${id}`),
   list: () => request('GET', '/analysis/list/all'),

@@ -123,10 +123,9 @@ export default function Upload() {
     setAnalyzing(true);
     try {
       await analysisApi.runLanggraph(batchResult.id, selectedIds);
-      toast.success('Analyse approfondie lancée en tâche de fond !');
-      // The pollBatch is already running or should we re-initiate?
-      // pollBatch doesn't stop unless component unmounts or we closed it.
-      // We rely on the existing polling.
+      toast.success('Analyse approfondie lancée ! Redirection vers les analyses…');
+      // Navigate to analyses page filtered by job so user can watch progress
+      setTimeout(() => navigate(`/analyses?job=${selectedJobId}`), 1200);
     } catch (err) {
       toast.error('Erreur lancement LangGraph: ' + err.message);
       setAnalyzing(false);

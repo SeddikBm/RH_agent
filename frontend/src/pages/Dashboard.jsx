@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Users, FileText, CheckCircle, Clock,
-  TrendingUp, ArrowRight, Zap, Briefcase, Trophy
+  TrendingUp, Zap, Briefcase, Trophy
 } from 'lucide-react';
+
 import { analysisApi, jobApi, cvApi } from '../api/client';
 import { RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 
@@ -178,70 +179,6 @@ export default function Dashboard() {
 
       {/* ── Content ── */}
       <div className="grid-2" style={{ gap: 24 }}>
-        {/* Dernières analyses */}
-        <div className="card" style={{ gridColumn: '1' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text-primary)' }}>
-              Dernières Analyses
-            </h2>
-            <button className="btn btn-sm btn-secondary" onClick={() => navigate('/analyses')}>
-              Voir tout <ArrowRight size={14} />
-            </button>
-          </div>
-
-          {loading ? (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {[1, 2, 3].map(i => (
-                <div key={i} className="skeleton" style={{ height: 72, borderRadius: 8 }} />
-              ))}
-            </div>
-          ) : analyses.length === 0 ? (
-            <div className="empty-state">
-              <div className="empty-state-icon">📋</div>
-              <div className="empty-state-title">Aucune analyse</div>
-              <p className="empty-state-text">Lancez votre première analyse pour commencer</p>
-              <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => navigate('/upload')}>
-                <Zap size={14} /> Analyser des CVs
-              </button>
-            </div>
-          ) : (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {analyses.slice(0, 5).map(a => {
-                const rec = RECOMMANDATION_CONFIG[a.recommandation] || { class: 'badge-neutral', label: a.statut };
-                return (
-                  <div
-                    key={a.id}
-                    className="analysis-list-item"
-                    onClick={() => navigate(`/analyses/${a.id}`)}
-                    style={{ cursor: 'pointer' }}
-                  >
-                    <div className="analysis-avatar">
-                      {(a.nom_candidat || '?')[0].toUpperCase()}
-                    </div>
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--color-text-primary)', marginBottom: 2 }}>
-                        {a.nom_candidat || 'Candidat anonyme'}
-                      </div>
-                      <div style={{ fontSize: 12, color: 'var(--color-text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        {a.titre_poste || 'Poste non défini'}
-                        {a.rang && <span style={{ marginLeft: 8 }}>• Rang #{a.rang}</span>}
-                      </div>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 6 }}>
-                      {a.score_global != null && (
-                        <span style={{ fontSize: 20, fontWeight: 800, color: 'var(--color-primary-light)' }}>
-                          {a.score_global.toFixed(0)}
-                        </span>
-                      )}
-                      <span className={`badge ${rec.class}`}>{rec.label}</span>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
         {/* Radar chart + recommandations */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
           <div className="card">
@@ -304,6 +241,18 @@ export default function Dashboard() {
             })}
           </div>
         </div>
+
+        {/* Empty state if no analyses yet */}
+        {!loading && terminated.length === 0 && (
+          <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 48 }}>
+            <div className="empty-state-icon">📊</div>
+            <div className="empty-state-title">Aucune analyse terminée</div>
+            <p className="empty-state-text" style={{ textAlign: 'center' }}>Uploadez des CVs et lancez une analyse pour commencer</p>
+            <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => navigate('/upload')}>
+              <Zap size={14} /> Analyser des CVs
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
