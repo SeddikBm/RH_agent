@@ -280,7 +280,7 @@ export default function Report() {
               <span className="badge badge-purple">
                 Durée : {data.duree_secondes ? `${data.duree_secondes.toFixed(0)}s` : '—'}
               </span>
-              <span className="badge badge-info">LangGraph · GroqCloud</span>
+              <span className="badge badge-info">LangGraph · GPT-4o-mini</span>
             </div>
           </div>
 

@@ -23,7 +23,22 @@ from agents.graph import run_analysis
 router = APIRouter()
 
 
-# ── Helper ────────────────────────────────────────────────────
+# ── Helpers ───────────────────────────────────────────────────
+
+def _humanize_filename(filename: str) -> str:
+    """
+    Transforme un nom de fichier brut en nom lisible.
+    Ex.: 'cv_karim_benali.txt' → 'Karim Benali'
+    """
+    import os
+    name = os.path.splitext(filename)[0]          # retirer l'extension
+    for prefix in ("cv_", "CV_", "cv-", "CV-"):
+        if name.lower().startswith(prefix.lower()):
+            name = name[len(prefix):]
+            break
+    name = name.replace("_", " ").replace("-", " ")
+    return name.strip().title()
+
 
 def _build_analyse_response(
     analyse: AnalyseModel,
@@ -34,7 +49,7 @@ def _build_analyse_response(
     if cv and cv.structure:
         nom_candidat = cv.structure.get("nom_complet")
     elif cv:
-        nom_candidat = cv.nom_fichier
+        nom_candidat = _humanize_filename(cv.nom_fichier)
 
     rapport_obj = None
     if analyse.rapport:
@@ -535,7 +550,7 @@ async def get_batch(batch_id: str, db: AsyncSession = Depends(get_db)):
             cv_r = await db.execute(select(CVModel).where(CVModel.id == uuid.UUID(cid)))
             cv = cv_r.scalar_one_or_none()
             if cv:
-                cv_names[cid] = cv.structure.get("nom_complet") if cv.structure else cv.nom_fichier
+                cv_names[cid] = cv.structure.get("nom_complet") if cv.structure else _humanize_filename(cv.nom_fichier)
 
     rankings = [
         CandidateRanking(
@@ -619,7 +634,7 @@ async def list_analyses(db: AsyncSession = Depends(get_db)):
         if cv and cv.structure:
             nom_candidat = cv.structure.get("nom_complet")
         elif cv:
-            nom_candidat = cv.nom_fichier
+            nom_candidat = _humanize_filename(cv.nom_fichier)
 
         items.append({
             "id": str(a.id),
@@ -656,7 +671,7 @@ async def list_analyses_by_job(job_id: str, db: AsyncSession = Depends(get_db)):
         if cv and cv.structure:
             nom_candidat = cv.structure.get("nom_complet")
         elif cv:
-            nom_candidat = cv.nom_fichier
+            nom_candidat = _humanize_filename(cv.nom_fichier)
 
         items.append({
             "id": str(a.id),
@@ -722,7 +737,7 @@ async def get_analyse_pdf(analyse_id: str, db: AsyncSession = Depends(get_db)):
     if cv and cv.structure:
         cv_name = cv.structure.get("nom_complet", "Candidat Inconnu")
     elif cv:
-        cv_name = cv.nom_fichier
+        cv_name = _humanize_filename(cv.nom_fichier)
 
     pdf_bytes = generate_analysis_pdf(
         analyse={"rapport": analyse.rapport},

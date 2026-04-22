@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Users, FileText, CheckCircle, Clock,
-  TrendingUp, Zap, Briefcase, Trophy
+  FileText, CheckCircle,
+  TrendingUp, Zap, Briefcase, ArrowRight
 } from 'lucide-react';
 
 import { analysisApi, jobApi, cvApi } from '../api/client';
-import { RadarChart, Radar, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts';
 
 const RECOMMANDATION_CONFIG = {
   'Entretien recommandé': { class: 'badge-success', label: '✓ Entretien' },
@@ -49,32 +48,9 @@ export default function Dashboard() {
   }, []);
 
   const terminated = analyses.filter(a => a.statut === 'termine');
-  const inProgress = analyses.filter(a => a.statut === 'en_cours');
   const avgScore = terminated.length > 0
     ? (terminated.reduce((s, a) => s + (a.score_global || 0), 0) / terminated.length).toFixed(0)
     : '--';
-
-  // Radar dynamique : moyennes réelles des catégories
-  const radarData = (() => {
-    const withRapport = terminated.filter(a => a.rapport?.scores);
-    if (withRapport.length === 0) {
-      return [
-        { subject: 'Compétences', value: 0 },
-        { subject: 'Expérience', value: 0 },
-        { subject: 'Formation', value: 0 },
-        { subject: 'Soft Skills', value: 0 },
-      ];
-    }
-    const avg = (key) => Math.round(
-      withRapport.reduce((s, a) => s + (a.rapport.scores[key] || 0), 0) / withRapport.length
-    );
-    return [
-      { subject: 'Compétences', value: avg('competences_techniques') },
-      { subject: 'Expérience', value: avg('experience') },
-      { subject: 'Formation', value: avg('formation') },
-      { subject: 'Soft Skills', value: avg('soft_skills') },
-    ];
-  })();
 
   // Top candidats par poste (basé sur les analyses avec rang)
   const topByJob = jobs.map(job => {
@@ -177,83 +153,17 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* ── Content ── */}
-      <div className="grid-2" style={{ gap: 24 }}>
-        {/* Radar chart + recommandations */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-          <div className="card">
-            <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 4 }}>
-              Profil Moyen des Candidats
-            </h2>
-            <p style={{ fontSize: 12, color: 'var(--color-text-muted)', marginBottom: 16 }}>
-              {terminated.length === 0 ? 'Aucune donnée disponible' : `Basé sur ${terminated.length} analyse(s)`}
-            </p>
-            <div className="radar-wrapper" style={{ height: 220 }}>
-              <ResponsiveContainer width="100%" height="100%">
-                <RadarChart data={radarData}>
-                  <PolarGrid stroke="rgba(99,102,241,0.15)" />
-                  <PolarAngleAxis
-                    dataKey="subject"
-                    tick={{ fill: 'var(--color-text-secondary)', fontSize: 12 }}
-                  />
-                  <Radar
-                    dataKey="value"
-                    stroke="var(--color-primary)"
-                    fill="var(--color-primary)"
-                    fillOpacity={0.2}
-                  />
-                </RadarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-
-          <div className="card">
-            <h2 style={{ fontSize: 16, fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: 16 }}>
-              Résultats de Recommandation
-            </h2>
-            {['Entretien recommandé', 'À considérer', 'Profil insuffisant'].map(rec => {
-              const count = terminated.filter(a => a.recommandation === rec).length;
-              const pct = terminated.length > 0 ? (count / terminated.length) * 100 : 0;
-              const config = RECOMMANDATION_CONFIG[rec];
-              return (
-                <div key={rec} style={{ marginBottom: 14 }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                    <span style={{ fontSize: 13, color: 'var(--color-text-secondary)' }}>{rec}</span>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--color-text-primary)' }}>
-                      {count}
-                    </span>
-                  </div>
-                  <div className="score-bar-track">
-                    <div
-                      className="score-bar-fill"
-                      style={{
-                        width: `${pct}%`,
-                        background: rec === 'Entretien recommandé'
-                          ? 'var(--gradient-success)'
-                          : rec === 'À considérer'
-                            ? 'var(--gradient-warning)'
-                            : 'var(--gradient-danger)',
-                      }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      {/* Empty state if no analyses yet */}
+      {!loading && terminated.length === 0 && (
+        <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 48 }}>
+          <div className="empty-state-icon">📊</div>
+          <div className="empty-state-title">Aucune analyse terminée</div>
+          <p className="empty-state-text" style={{ textAlign: 'center' }}>Uploadez des CVs et lancez une analyse pour commencer</p>
+          <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => navigate('/upload')}>
+            <Zap size={14} /> Analyser des CVs
+          </button>
         </div>
-
-        {/* Empty state if no analyses yet */}
-        {!loading && terminated.length === 0 && (
-          <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 48 }}>
-            <div className="empty-state-icon">📊</div>
-            <div className="empty-state-title">Aucune analyse terminée</div>
-            <p className="empty-state-text" style={{ textAlign: 'center' }}>Uploadez des CVs et lancez une analyse pour commencer</p>
-            <button className="btn btn-primary" style={{ marginTop: 16 }} onClick={() => navigate('/upload')}>
-              <Zap size={14} /> Analyser des CVs
-            </button>
-          </div>
-        )}
-      </div>
+      )}
     </div>
   );
 }

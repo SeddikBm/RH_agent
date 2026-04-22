@@ -49,7 +49,7 @@ export default function Layout() {
               boxShadow: '0 0 8px var(--color-success)',
             }} />
             <span style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>
-              GroqCloud · Ollama · LangGraph
+              OpenAI · LangGraph
             </span>
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function Layout() {
             borderRadius: 'var(--radius-full)',
             border: '1px solid var(--color-border)',
           }}>
-            Llama 3.3 70B · mxbai-embed-large
+            GPT-4o-mini · BGE-small-en
           </div>
         </header>
 

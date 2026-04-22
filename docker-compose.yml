@@ -1,7 +1,5 @@
 services:
-  # ─────────────────────────────────────
-  # PostgreSQL — Base de données (standard, sans pgvector)
-  # ─────────────────────────────────────
+
   db:
     image: postgres:16-alpine
     container_name: hr_agent_db
@@ -20,9 +18,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # ─────────────────────────────────────
-  # Backend FastAPI
-  # ─────────────────────────────────────
+
   backend:
     build:
       context: ./backend
@@ -48,9 +44,7 @@ services:
       timeout: 10s
       retries: 3
 
-  # ─────────────────────────────────────
-  # Frontend React (Nginx)
-  # ─────────────────────────────────────
+
   frontend:
     build:
       context: ./frontend

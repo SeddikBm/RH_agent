@@ -1,0 +1,483 @@
+{"kind":"deck","id":"rh-agent-12min-simple","slideCount":13,"slideSize":{"width":1280,"height":720}}
+{"kind":"slide","slide":1,"id":"75j3qa"}
+{"kind":"slide","slide":2,"id":"enpyjn"}
+{"kind":"slide","slide":3,"id":"jb4dpc"}
+{"kind":"slide","slide":4,"id":"gp8bob"}
+{"kind":"slide","slide":5,"id":"bku77b"}
+{"kind":"slide","slide":6,"id":"qn4p9t"}
+{"kind":"slide","slide":7,"id":"pz9tam"}
+{"kind":"slide","slide":8,"id":"iywwzi"}
+{"kind":"slide","slide":9,"id":"gyruac"}
+{"kind":"slide","slide":10,"id":"a6vjt9"}
+{"kind":"slide","slide":11,"id":"1ffppj"}
+{"kind":"slide","slide":12,"id":"pk4gv7"}
+{"kind":"slide","slide":13,"id":"73xyev"}
+{"kind":"shape","slide":1,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":1,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":1,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":1,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":1,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":1,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":1,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":1,"id":"9","role":"cover wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"shape","slide":1,"id":"10","role":"cover accent rule","shapeType":"rect","bbox":[72,104,7,430]}
+{"kind":"textbox","slide":1,"id":"11","role":"kicker","text":"PROJET RH AGENT","textPreview":"PROJET RH AGENT","textChars":15,"textLines":1,"bbox":[96,102,520,26]}
+{"kind":"textbox","slide":1,"id":"12","role":"cover title","text":"Agent RH IA\nPrésentation détaillée du projet","textPreview":"Agent RH IA | Présentation détaillée du projet","textChars":44,"textLines":2,"bbox":[92,144,780,182]}
+{"kind":"textbox","slide":1,"id":"13","role":"cover subtitle","text":"Une plateforme qui aide le recruteur à trier des CV, sélectionner les meilleurs profils et générer des rapports explicatifs à partir d'une fiche de poste.","textPreview":"Une plateforme qui aide le recruteur à trier des CV, sélectionner les meilleurs profils et générer des rapports explicatifs à partir d'une fiche de poste.","textChars":154,"textLines":1,"bbox":[96,332,700,94]}
+{"kind":"shape","slide":1,"id":"14","role":"cover moment panel","shapeType":"roundRect","bbox":[96,470,420,88]}
+{"kind":"textbox","slide":1,"id":"15","role":"cover moment","text":"Version 10 min +","textPreview":"Version 10 min +","textChars":16,"textLines":1,"bbox":[122,493,372,36]}
+{"kind":"shape","slide":1,"id":"16","role":"cover badge panel","shapeType":"roundRect","bbox":[920,122,220,220]}
+{"kind":"textbox","slide":1,"id":"17","role":"cover stat","text":"2 phases","textPreview":"2 phases","textChars":8,"textLines":1,"bbox":[972,154,120,42]}
+{"kind":"textbox","slide":1,"id":"18","role":"cover stat body","text":"RAG pour classer\nLangGraph pour expliquer","textPreview":"RAG pour classer | LangGraph pour expliquer","textChars":41,"textLines":2,"bbox":[960,212,146,84]}
+{"kind":"shape","slide":2,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":2,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":2,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":2,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":2,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":2,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":2,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":2,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":2,"id":"10","role":"header","text":"01. PLAN","textPreview":"01. PLAN","textChars":8,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":2,"id":"11","role":"header","text":"02 / 13","textPreview":"02 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":2,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":2,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":2,"id":"14","role":"title","text":"Plan de la présentation","textPreview":"Plan de la présentation","textChars":23,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":2,"id":"15","role":"subtitle","text":"Je vais présenter le projet en cinq parties : le besoin, la solution, l'architecture, le fonctionnement et la valeur produite.","textPreview":"Je vais présenter le projet en cinq parties : le besoin, la solution, l'architecture, le fonctionnement et la valeur produite.","textChars":126,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":2,"id":"16","role":"card panel: Partie 1","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":2,"id":"17","role":"card accent: Partie 1","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":2,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":2,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":2,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":2,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":2,"id":"22","role":"card label","text":"Partie 1","textPreview":"Partie 1","textChars":8,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":2,"id":"23","role":"card body: Partie 1","text":"Pourquoi ce projet existe,\nquel problème RH il cherche\nà résoudre et quel objectif\nil poursuit.","textPreview":"Pourquoi ce projet existe, | quel problème RH il cherche | à résoudre et quel objectif | il poursuit.","textChars":95,"textLines":4,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":2,"id":"24","role":"card panel: Partie 2","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":2,"id":"25","role":"card accent: Partie 2","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":2,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":2,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":2,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":2,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":2,"id":"30","role":"card label","text":"Partie 2","textPreview":"Partie 2","textChars":8,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":2,"id":"31","role":"card body: Partie 2","text":"Comment la solution\nfonctionne du point de vue\nutilisateur et quelles\ntechnologies sont utilisées.","textPreview":"Comment la solution | fonctionne du point de vue | utilisateur et quelles | technologies sont utilisées.","textChars":98,"textLines":4,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":2,"id":"32","role":"card panel: Partie 3","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":2,"id":"33","role":"card accent: Partie 3","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":2,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":2,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":2,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":2,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":2,"id":"38","role":"card label","text":"Partie 3","textPreview":"Partie 3","textChars":8,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":2,"id":"39","role":"card body: Partie 3","text":"Comment le système classe\nles CV, calcule les scores\net génère un rapport final\nexplicable.","textPreview":"Comment le système classe | les CV, calcule les scores | et génère un rapport final | explicable.","textChars":91,"textLines":4,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":3,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":3,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":3,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":3,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":3,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":3,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":3,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":3,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":3,"id":"10","role":"header","text":"02. PROBLÈME","textPreview":"02. PROBLÈME","textChars":12,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":3,"id":"11","role":"header","text":"03 / 13","textPreview":"03 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":3,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":3,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":3,"id":"14","role":"title","text":"Le problème métier","textPreview":"Le problème métier","textChars":18,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":3,"id":"15","role":"subtitle","text":"Dans un recrutement, le volume de CV est élevé, le temps est limité et la justification des choix devient difficile.","textPreview":"Dans un recrutement, le volume de CV est élevé, le temps est limité et la justification des choix devient difficile.","textChars":116,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":3,"id":"16","role":"card panel: Volume de CV","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":3,"id":"17","role":"card accent: Volume de CV","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":3,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":3,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":3,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":3,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":3,"id":"22","role":"card label","text":"Volume de CV","textPreview":"Volume de CV","textChars":12,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":3,"id":"23","role":"card body: Volume de CV","text":"Pour un poste attractif, un\nrecruteur peut recevoir\nbeaucoup de candidatures\ntrès différentes en format\net en qualité.","textPreview":"Pour un poste attractif, un | recruteur peut recevoir | beaucoup de candidatures | très différentes en format | et en qualité.","textChars":118,"textLines":5,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":3,"id":"24","role":"card panel: Temps d'analyse","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":3,"id":"25","role":"card accent: Temps d'analyse","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":3,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":3,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":3,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":3,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":3,"id":"30","role":"card label","text":"Temps d'analyse","textPreview":"Temps d'analyse","textChars":15,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":3,"id":"31","role":"card body: Temps d'analyse","text":"Comparer chaque CV à une\nfiche de poste demande du\ntemps, surtout quand il faut\nlire compétences, expérience\net formation.","textPreview":"Comparer chaque CV à une | fiche de poste demande du | temps, surtout quand il faut | lire compétences, expérience | et formation.","textChars":122,"textLines":5,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":3,"id":"32","role":"card panel: Besoin d'explication","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":3,"id":"33","role":"card accent: Besoin d'explication","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":3,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":3,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":3,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":3,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":3,"id":"38","role":"card label","text":"Besoin d'explication","textPreview":"Besoin d'explication","textChars":20,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":3,"id":"39","role":"card body: Besoin d'explication","text":"Le recruteur ne veut pas\nseulement trier vite. Il\nveut aussi pouvoir justifier\npourquoi un profil est\nretenu ou écarté.","textPreview":"Le recruteur ne veut pas | seulement trier vite. Il | veut aussi pouvoir justifier | pourquoi un profil est | retenu ou écarté.","textChars":119,"textLines":5,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":4,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":4,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":4,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":4,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":4,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":4,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":4,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":4,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":4,"id":"10","role":"header","text":"03. OBJECTIF","textPreview":"03. OBJECTIF","textChars":12,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":4,"id":"11","role":"header","text":"04 / 13","textPreview":"04 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":4,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":4,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":4,"id":"14","role":"title","text":"L'objectif du projet","textPreview":"L'objectif du projet","textChars":20,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":4,"id":"15","role":"subtitle","text":"Le projet n'a pas pour but de remplacer le recruteur, mais de lui fournir un outil d'aide à la décision plus rapide et plus structuré.","textPreview":"Le projet n'a pas pour but de remplacer le recruteur, mais de lui fournir un outil d'aide à la décision plus rapide et plus structuré.","textChars":134,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":4,"id":"16","role":"card panel: Accélérer","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":4,"id":"17","role":"card accent: Accélérer","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":4,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":4,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":4,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":4,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":4,"id":"22","role":"card label","text":"Accélérer","textPreview":"Accélérer","textChars":9,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":4,"id":"23","role":"card body: Accélérer","text":"Réduire le temps passé sur\nle premier tri des\ncandidatures en automatisant\nles tâches répétitives.","textPreview":"Réduire le temps passé sur | le premier tri des | candidatures en automatisant | les tâches répétitives.","textChars":98,"textLines":4,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":4,"id":"24","role":"card panel: Structurer","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":4,"id":"25","role":"card accent: Structurer","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":4,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":4,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":4,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":4,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":4,"id":"30","role":"card label","text":"Structurer","textPreview":"Structurer","textChars":10,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":4,"id":"31","role":"card body: Structurer","text":"Transformer des CV et des\nfiches de poste en données\ncomparables pour obtenir une\nanalyse plus homogène.","textPreview":"Transformer des CV et des | fiches de poste en données | comparables pour obtenir une | analyse plus homogène.","textChars":104,"textLines":4,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":4,"id":"32","role":"card panel: Assister","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":4,"id":"33","role":"card accent: Assister","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":4,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":4,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":4,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":4,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":4,"id":"38","role":"card label","text":"Assister","textPreview":"Assister","textChars":8,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":4,"id":"39","role":"card body: Assister","text":"Laisser la décision finale\nau recruteur humain tout en\napportant un classement, un\nscore et une explication\nlisible.","textPreview":"Laisser la décision finale | au recruteur humain tout en | apportant un classement, un | score et une explication | lisible.","textChars":116,"textLines":5,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":5,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":5,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":5,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":5,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":5,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":5,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":5,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":5,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":5,"id":"10","role":"header","text":"04. SOLUTION","textPreview":"04. SOLUTION","textChars":12,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":5,"id":"11","role":"header","text":"05 / 13","textPreview":"05 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":5,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":5,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":5,"id":"14","role":"title","text":"La solution proposée","textPreview":"La solution proposée","textChars":20,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":5,"id":"15","role":"subtitle","text":"Le projet combine un tri rapide de masse et une analyse approfondie sur les profils les plus prometteurs.","textPreview":"Le projet combine un tri rapide de masse et une analyse approfondie sur les profils les plus prometteurs.","textChars":105,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":5,"id":"16","role":"card panel: Étape 1","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":5,"id":"17","role":"card accent: Étape 1","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":5,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":5,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":5,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":5,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":5,"id":"22","role":"card label","text":"Étape 1","textPreview":"Étape 1","textChars":7,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":5,"id":"23","role":"card body: Étape 1","text":"Le système réalise un\nclassement rapide des CV\nface à un poste grâce à un\nmoteur RAG basé sur la\nsimilarité sémantique.","textPreview":"Le système réalise un | classement rapide des CV | face à un poste grâce à un | moteur RAG basé sur la | similarité sémantique.","textChars":119,"textLines":5,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":5,"id":"24","role":"card panel: Étape 2","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":5,"id":"25","role":"card accent: Étape 2","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":5,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":5,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":5,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":5,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":5,"id":"30","role":"card label","text":"Étape 2","textPreview":"Étape 2","textChars":7,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":5,"id":"31","role":"card body: Étape 2","text":"Après ce classement, le\nrecruteur choisit les\nprofils à analyser en\nprofondeur avec un pipeline\nLangGraph.","textPreview":"Après ce classement, le | recruteur choisit les | profils à analyser en | profondeur avec un pipeline | LangGraph.","textChars":106,"textLines":5,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":5,"id":"32","role":"card panel: Résultat","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":5,"id":"33","role":"card accent: Résultat","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":5,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":5,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":5,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":5,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":5,"id":"38","role":"card label","text":"Résultat","textPreview":"Résultat","textChars":8,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":5,"id":"39","role":"card body: Résultat","text":"Le système produit ensuite\nun rapport complet avec\nscore, recommandations,\npoints forts, lacunes et\nexport PDF.","textPreview":"Le système produit ensuite | un rapport complet avec | score, recommandations, | points forts, lacunes et | export PDF.","textChars":111,"textLines":5,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":6,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":6,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":6,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":6,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":6,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":6,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":6,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":6,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":6,"id":"10","role":"header","text":"05. STACK","textPreview":"05. STACK","textChars":9,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":6,"id":"11","role":"header","text":"06 / 13","textPreview":"06 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":6,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":6,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":6,"id":"14","role":"title","text":"Les technologies utilisées","textPreview":"Les technologies utilisées","textChars":26,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":6,"id":"15","role":"subtitle","text":"Le projet repose sur un frontend web, un backend API, une base relationnelle et un moteur de recherche vectorielle.","textPreview":"Le projet repose sur un frontend web, un backend API, une base relationnelle et un moteur de recherche vectorielle.","textChars":115,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":6,"id":"16","role":"card panel: Interface","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":6,"id":"17","role":"card accent: Interface","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":6,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":6,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":6,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":6,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":6,"id":"22","role":"card label","text":"Interface","textPreview":"Interface","textChars":9,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":6,"id":"23","role":"card body: Interface","text":"React + Vite pour créer des\npostes, déposer les CV,\nsuivre les analyses et\nconsulter les rapports.","textPreview":"React + Vite pour créer des | postes, déposer les CV, | suivre les analyses et | consulter les rapports.","textChars":98,"textLines":4,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":6,"id":"24","role":"card panel: Backend","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":6,"id":"25","role":"card accent: Backend","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":6,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":6,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":6,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":6,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":6,"id":"30","role":"card label","text":"Backend","textPreview":"Backend","textChars":7,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":6,"id":"31","role":"card body: Backend","text":"FastAPI pour exposer les\nroutes, lancer les\ntraitements, gérer les\ntâches de fond et organiser\nle pipeline.","textPreview":"FastAPI pour exposer les | routes, lancer les | traitements, gérer les | tâches de fond et organiser | le pipeline.","textChars":107,"textLines":5,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":6,"id":"32","role":"card panel: IA et données","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":6,"id":"33","role":"card accent: IA et données","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":6,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":6,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":6,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":6,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":6,"id":"38","role":"card label","text":"IA et données","textPreview":"IA et données","textChars":13,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":6,"id":"39","role":"card body: IA et données","text":"PostgreSQL pour les données\nmétier, ChromaDB pour la\nsimilarité, LLM pour\nstructurer, scorer et\nexpliquer.","textPreview":"PostgreSQL pour les données | métier, ChromaDB pour la | similarité, LLM pour | structurer, scorer et | expliquer.","textChars":106,"textLines":5,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":7,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":7,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":7,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":7,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":7,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":7,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":7,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":7,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":7,"id":"10","role":"header","text":"06. ARCHITECTURE","textPreview":"06. ARCHITECTURE","textChars":16,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":7,"id":"11","role":"header","text":"07 / 13","textPreview":"07 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":7,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":7,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":7,"id":"14","role":"title","text":"Architecture du système","textPreview":"Architecture du système","textChars":23,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":7,"id":"15","role":"subtitle","text":"Les données circulent entre le frontend, l'API, la base SQL, le moteur vectoriel et les modules d'analyse.","textPreview":"Les données circulent entre le frontend, l'API, la base SQL, le moteur vectoriel et les modules d'analyse.","textChars":106,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":7,"id":"16","role":"card panel: Entrée utilisateur","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":7,"id":"17","role":"card accent: Entrée utilisateur","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":7,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":7,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":7,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":7,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":7,"id":"22","role":"card label","text":"Entrée utilisateur","textPreview":"Entrée utilisateur","textChars":18,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":7,"id":"23","role":"card body: Entrée utilisateur","text":"Le frontend envoie au\nbackend les CV importés, les\nfiches de poste et les\ndemandes d'analyse batch ou\nindividuelle.","textPreview":"Le frontend envoie au | backend les CV importés, les | fiches de poste et les | demandes d'analyse batch ou | individuelle.","textChars":115,"textLines":5,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":7,"id":"24","role":"card panel: Stockage","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":7,"id":"25","role":"card accent: Stockage","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":7,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":7,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":7,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":7,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":7,"id":"30","role":"card label","text":"Stockage","textPreview":"Stockage","textChars":8,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":7,"id":"31","role":"card body: Stockage","text":"Les fichiers, les postes,\nles analyses et les états de\nbatch sont conservés en base\npour garder un historique\nclair.","textPreview":"Les fichiers, les postes, | les analyses et les états de | batch sont conservés en base | pour garder un historique | clair.","textChars":116,"textLines":5,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":7,"id":"32","role":"card panel: Traitement","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":7,"id":"33","role":"card accent: Traitement","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":7,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":7,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":7,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":7,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":7,"id":"38","role":"card label","text":"Traitement","textPreview":"Traitement","textChars":10,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":7,"id":"39","role":"card body: Traitement","text":"Le backend appelle les\nservices de parsing,\nd'indexation RAG et le\ngraphe LangGraph pour\nfabriquer le résultat final.","textPreview":"Le backend appelle les | services de parsing, | d'indexation RAG et le | graphe LangGraph pour | fabriquer le résultat final.","textChars":117,"textLines":5,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":8,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":8,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":8,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":8,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":8,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":8,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":8,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":8,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":8,"id":"10","role":"header","text":"07. PARCOURS","textPreview":"07. PARCOURS","textChars":12,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":8,"id":"11","role":"header","text":"08 / 13","textPreview":"08 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":8,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":8,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":8,"id":"14","role":"title","text":"Le parcours utilisateur","textPreview":"Le parcours utilisateur","textChars":23,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":8,"id":"15","role":"subtitle","text":"Du point de vue du recruteur, l'utilisation suit un chemin simple, de la fiche de poste jusqu'au rapport final.","textPreview":"Du point de vue du recruteur, l'utilisation suit un chemin simple, de la fiche de poste jusqu'au rapport final.","textChars":111,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":8,"id":"16","role":"card panel: 1. Préparer","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":8,"id":"17","role":"card accent: 1. Préparer","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":8,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":8,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":8,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":8,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":8,"id":"22","role":"card label","text":"1. Préparer","textPreview":"1. Préparer","textChars":11,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":8,"id":"23","role":"card body: 1. Préparer","text":"Le recruteur crée une fiche\nde poste manuellement ou la\nfait extraire depuis un\ndocument PDF, DOCX ou TXT.","textPreview":"Le recruteur crée une fiche | de poste manuellement ou la | fait extraire depuis un | document PDF, DOCX ou TXT.","textChars":106,"textLines":4,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":8,"id":"24","role":"card panel: 2. Charger","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":8,"id":"25","role":"card accent: 2. Charger","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":8,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":8,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":8,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":8,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":8,"id":"30","role":"card label","text":"2. Charger","textPreview":"2. Charger","textChars":10,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":8,"id":"31","role":"card body: 2. Charger","text":"Il dépose ensuite plusieurs\nCV. Le système extrait le\ntexte et prépare\nl'indexation en\narrière-plan.","textPreview":"Il dépose ensuite plusieurs | CV. Le système extrait le | texte et prépare | l'indexation en | arrière-plan.","textChars":100,"textLines":5,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":8,"id":"32","role":"card panel: 3. Analyser","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":8,"id":"33","role":"card accent: 3. Analyser","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":8,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":8,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":8,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":8,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":8,"id":"38","role":"card label","text":"3. Analyser","textPreview":"3. Analyser","textChars":11,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":8,"id":"39","role":"card body: 3. Analyser","text":"Le batch classe les\ncandidats, le recruteur\nchoisit les meilleurs\nprofils et obtient ensuite\nles rapports détaillés.","textPreview":"Le batch classe les | candidats, le recruteur | choisit les meilleurs | profils et obtient ensuite | les rapports détaillés.","textChars":116,"textLines":5,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":9,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":9,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":9,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":9,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":9,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":9,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":9,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":9,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":9,"id":"10","role":"header","text":"08. RAG","textPreview":"08. RAG","textChars":7,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":9,"id":"11","role":"header","text":"09 / 13","textPreview":"09 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":9,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":9,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":9,"id":"14","role":"title","text":"Comment fonctionne la présélection RAG","textPreview":"Comment fonctionne la présélection RAG","textChars":38,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":9,"id":"15","role":"subtitle","text":"Le système compare les CV et la fiche de poste par sections normalisées au lieu de comparer seulement des textes bruts.","textPreview":"Le système compare les CV et la fiche de poste par sections normalisées au lieu de comparer seulement des textes bruts.","textChars":119,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":9,"id":"16","role":"card panel: Découpage","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":9,"id":"17","role":"card accent: Découpage","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":9,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":9,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":9,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":9,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":9,"id":"22","role":"card label","text":"Découpage","textPreview":"Découpage","textChars":9,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":9,"id":"23","role":"card body: Découpage","text":"Chaque CV et chaque fiche de\nposte sont transformés en\nquatre sections :\ncompétences, expérience,\nformation et profil.","textPreview":"Chaque CV et chaque fiche de | poste sont transformés en | quatre sections : | compétences, expérience, | formation et profil.","textChars":118,"textLines":5,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":9,"id":"24","role":"card panel: Vectorisation","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":9,"id":"25","role":"card accent: Vectorisation","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":9,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":9,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":9,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":9,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":9,"id":"30","role":"card label","text":"Vectorisation","textPreview":"Vectorisation","textChars":13,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":9,"id":"31","role":"card body: Vectorisation","text":"Chaque section est convertie\nen embedding et stockée dans\nChromaDB pour permettre la\nrecherche de similarité.","textPreview":"Chaque section est convertie | en embedding et stockée dans | ChromaDB pour permettre la | recherche de similarité.","textChars":109,"textLines":4,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":9,"id":"32","role":"card panel: Classement","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":9,"id":"33","role":"card accent: Classement","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":9,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":9,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":9,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":9,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":9,"id":"38","role":"card label","text":"Classement","textPreview":"Classement","textChars":10,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":9,"id":"39","role":"card body: Classement","text":"Le système calcule ensuite\nun score pondéré pour\nclasser rapidement tous les\nCV par ordre de pertinence.","textPreview":"Le système calcule ensuite | un score pondéré pour | classer rapidement tous les | CV par ordre de pertinence.","textChars":104,"textLines":4,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":10,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":10,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":10,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":10,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":10,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":10,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":10,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":10,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":10,"id":"10","role":"header","text":"09. LANGGRAPH","textPreview":"09. LANGGRAPH","textChars":13,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":10,"id":"11","role":"header","text":"10 / 13","textPreview":"10 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":10,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":10,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":10,"id":"14","role":"title","text":"Comment fonctionne l'analyse détaillée","textPreview":"Comment fonctionne l'analyse détaillée","textChars":38,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":10,"id":"15","role":"subtitle","text":"Une fois les meilleurs profils choisis, LangGraph exécute une chaîne d'analyse en plusieurs étapes successives.","textPreview":"Une fois les meilleurs profils choisis, LangGraph exécute une chaîne d'analyse en plusieurs étapes successives.","textChars":111,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":10,"id":"16","role":"card panel: Étape 1","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":10,"id":"17","role":"card accent: Étape 1","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":10,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":10,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":10,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":10,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":10,"id":"22","role":"card label","text":"Étape 1","textPreview":"Étape 1","textChars":7,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":10,"id":"23","role":"card body: Étape 1","text":"Le système extrait ou\nréutilise les compétences,\nles soft skills, les langues\net les informations de\nprofil du CV.","textPreview":"Le système extrait ou | réutilise les compétences, | les soft skills, les langues | et les informations de | profil du CV.","textChars":114,"textLines":5,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":10,"id":"24","role":"card panel: Étape 2","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":10,"id":"25","role":"card accent: Étape 2","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":10,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":10,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":10,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":10,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":10,"id":"30","role":"card label","text":"Étape 2","textPreview":"Étape 2","textChars":7,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":10,"id":"31","role":"card body: Étape 2","text":"Il réalise ensuite un\nmatching plus fin entre le\nCV et le poste, compétence\npar compétence, avec\njustification.","textPreview":"Il réalise ensuite un | matching plus fin entre le | CV et le poste, compétence | par compétence, avec | justification.","textChars":111,"textLines":5,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":10,"id":"32","role":"card panel: Étape 3","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":10,"id":"33","role":"card accent: Étape 3","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":10,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":10,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":10,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":10,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":10,"id":"38","role":"card label","text":"Étape 3","textPreview":"Étape 3","textChars":7,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":10,"id":"39","role":"card body: Étape 3","text":"Enfin, il calcule les\nscores, génère un rapport en\nlangage naturel et applique\ndes garde-fous avant\nvalidation.","textPreview":"Enfin, il calcule les | scores, génère un rapport en | langage naturel et applique | des garde-fous avant | validation.","textChars":111,"textLines":5,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":11,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":11,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":11,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":11,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":11,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":11,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":11,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":11,"id":"9","role":"metrics wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":11,"id":"10","role":"header","text":"10. SCORING","textPreview":"10. SCORING","textChars":11,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":11,"id":"11","role":"header","text":"11 / 13","textPreview":"11 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":11,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":11,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":11,"id":"14","role":"title","text":"Le score final expliqué","textPreview":"Le score final expliqué","textChars":23,"textLines":1,"bbox":[72,92,820,138]}
+{"kind":"textbox","slide":11,"id":"15","role":"subtitle","text":"Le score global suit une pondération métier claire. Ensuite, le système combine un jugement LLM et un signal RAG.","textPreview":"Le score global suit une pondération métier claire. Ensuite, le système combine un jugement LLM et un signal RAG.","textChars":113,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":11,"id":"16","role":"metric panel: Compétences techniques","shapeType":"roundRect","bbox":[92,344,540,146]}
+{"kind":"shape","slide":11,"id":"17","role":"metric accent: Compétences techniques","shapeType":"rect","bbox":[92,344,540,7]}
+{"kind":"textbox","slide":11,"id":"18","role":"metric value","text":"40 %","textPreview":"40 %","textChars":4,"textLines":1,"bbox":[114,368,496,46]}
+{"kind":"textbox","slide":11,"id":"19","role":"metric label","text":"Compétences techniques","textPreview":"Compétences techniques","textChars":22,"textLines":1,"bbox":[116,420,492,26]}
+{"kind":"textbox","slide":11,"id":"20","role":"metric note","text":"Critère principal du score global","textPreview":"Critère principal du score global","textChars":33,"textLines":1,"bbox":[116,454,492,18]}
+{"kind":"shape","slide":11,"id":"21","role":"metric panel: Expérience","shapeType":"roundRect","bbox":[648,344,540,146]}
+{"kind":"shape","slide":11,"id":"22","role":"metric accent: Expérience","shapeType":"rect","bbox":[648,344,540,7]}
+{"kind":"textbox","slide":11,"id":"23","role":"metric value","text":"30 %","textPreview":"30 %","textChars":4,"textLines":1,"bbox":[670,368,496,46]}
+{"kind":"textbox","slide":11,"id":"24","role":"metric label","text":"Expérience","textPreview":"Expérience","textChars":10,"textLines":1,"bbox":[672,420,492,26]}
+{"kind":"textbox","slide":11,"id":"25","role":"metric note","text":"Missions réalisées et niveau d'adéquation","textPreview":"Missions réalisées et niveau d'adéquation","textChars":41,"textLines":1,"bbox":[672,454,492,18]}
+{"kind":"shape","slide":11,"id":"26","role":"metric panel: Formation","shapeType":"roundRect","bbox":[92,512,540,146]}
+{"kind":"shape","slide":11,"id":"27","role":"metric accent: Formation","shapeType":"rect","bbox":[92,512,540,7]}
+{"kind":"textbox","slide":11,"id":"28","role":"metric value","text":"20 %","textPreview":"20 %","textChars":4,"textLines":1,"bbox":[114,536,496,46]}
+{"kind":"textbox","slide":11,"id":"29","role":"metric label","text":"Formation","textPreview":"Formation","textChars":9,"textLines":1,"bbox":[116,588,492,26]}
+{"kind":"textbox","slide":11,"id":"30","role":"metric note","text":"Diplôme, cursus, certifications","textPreview":"Diplôme, cursus, certifications","textChars":31,"textLines":1,"bbox":[116,622,492,18]}
+{"kind":"shape","slide":11,"id":"31","role":"metric panel: Profil","shapeType":"roundRect","bbox":[648,512,540,146]}
+{"kind":"shape","slide":11,"id":"32","role":"metric accent: Profil","shapeType":"rect","bbox":[648,512,540,7]}
+{"kind":"textbox","slide":11,"id":"33","role":"metric value","text":"10 %","textPreview":"10 %","textChars":4,"textLines":1,"bbox":[670,536,496,46]}
+{"kind":"textbox","slide":11,"id":"34","role":"metric label","text":"Profil","textPreview":"Profil","textChars":6,"textLines":1,"bbox":[672,588,492,26]}
+{"kind":"textbox","slide":11,"id":"35","role":"metric note","text":"Soft skills, langues, résumé","textPreview":"Soft skills, langues, résumé","textChars":28,"textLines":1,"bbox":[672,622,492,18]}
+{"kind":"shape","slide":12,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":12,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":12,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":12,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":12,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":12,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":12,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":12,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":12,"id":"10","role":"header","text":"11. SORTIES","textPreview":"11. SORTIES","textChars":11,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":12,"id":"11","role":"header","text":"12 / 13","textPreview":"12 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":12,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":12,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":12,"id":"14","role":"title","text":"Ce que le système produit concrètement","textPreview":"Ce que le système produit concrètement","textChars":38,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":12,"id":"15","role":"subtitle","text":"Le résultat final n'est pas seulement un score. Le système génère un dossier de décision complet, lisible et exploitable.","textPreview":"Le résultat final n'est pas seulement un score. Le système génère un dossier de décision complet, lisible et exploitable.","textChars":121,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":12,"id":"16","role":"card panel: Classement batch","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":12,"id":"17","role":"card accent: Classement batch","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":12,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":12,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":12,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":12,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":12,"id":"22","role":"card label","text":"Classement batch","textPreview":"Classement batch","textChars":16,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":12,"id":"23","role":"card body: Classement batch","text":"Une liste ordonnée des\ncandidats avec leur rang et\nleurs scores pour orienter\nrapidement le recruteur.","textPreview":"Une liste ordonnée des | candidats avec leur rang et | leurs scores pour orienter | rapidement le recruteur.","textChars":102,"textLines":4,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":12,"id":"24","role":"card panel: Rapport détaillé","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":12,"id":"25","role":"card accent: Rapport détaillé","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":12,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":12,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":12,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":12,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":12,"id":"30","role":"card label","text":"Rapport détaillé","textPreview":"Rapport détaillé","textChars":16,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":12,"id":"31","role":"card body: Rapport détaillé","text":"Un document structuré avec\nadéquation au poste, points\nforts, points faibles,\nmatching par compétence et\nrecommandation.","textPreview":"Un document structuré avec | adéquation au poste, points | forts, points faibles, | matching par compétence et | recommandation.","textChars":120,"textLines":5,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":12,"id":"32","role":"card panel: Export PDF","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":12,"id":"33","role":"card accent: Export PDF","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":12,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":12,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":12,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":12,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":12,"id":"38","role":"card label","text":"Export PDF","textPreview":"Export PDF","textChars":10,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":12,"id":"39","role":"card body: Export PDF","text":"Un format pratique pour\npartager, archiver et relire\nl'analyse avec une vraie\ntraçabilité des résultats.","textPreview":"Un format pratique pour | partager, archiver et relire | l'analyse avec une vraie | traçabilité des résultats.","textChars":104,"textLines":4,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":13,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":13,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":13,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":13,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":13,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":13,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":13,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":13,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":13,"id":"10","role":"header","text":"12. VALEUR","textPreview":"12. VALEUR","textChars":10,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":13,"id":"11","role":"header","text":"13 / 13","textPreview":"13 / 13","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":13,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":13,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":13,"id":"14","role":"title","text":"Valeur, limites et perspectives","textPreview":"Valeur, limites et perspectives","textChars":31,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":13,"id":"15","role":"subtitle","text":"Le projet apporte une vraie valeur opérationnelle, mais il doit rester cadré comme un outil d'assistance responsable.","textPreview":"Le projet apporte une vraie valeur opérationnelle, mais il doit rester cadré comme un outil d'assistance responsable.","textChars":117,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":13,"id":"16","role":"card panel: Valeur","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":13,"id":"17","role":"card accent: Valeur","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":13,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":13,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":13,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":13,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":13,"id":"22","role":"card label","text":"Valeur","textPreview":"Valeur","textChars":6,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":13,"id":"23","role":"card body: Valeur","text":"Le projet fait gagner du\ntemps, améliore\nl'homogénéité du tri et rend\nles décisions plus faciles à\nexpliquer.","textPreview":"Le projet fait gagner du | temps, améliore | l'homogénéité du tri et rend | les décisions plus faciles à | expliquer.","textChars":109,"textLines":5,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":13,"id":"24","role":"card panel: Limites","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":13,"id":"25","role":"card accent: Limites","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":13,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":13,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":13,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":13,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":13,"id":"30","role":"card label","text":"Limites","textPreview":"Limites","textChars":7,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":13,"id":"31","role":"card body: Limites","text":"La qualité dépend du contenu\ndes CV, des modèles utilisés\net de la qualité des\nprompts. Le contrôle humain\nreste indispensable.","textPreview":"La qualité dépend du contenu | des CV, des modèles utilisés | et de la qualité des | prompts. Le contrôle humain | reste indispensable.","textChars":127,"textLines":5,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":13,"id":"32","role":"card panel: Suite","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":13,"id":"33","role":"card accent: Suite","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":13,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":13,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":13,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":13,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":13,"id":"38","role":"card label","text":"Suite","textPreview":"Suite","textChars":5,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":13,"id":"39","role":"card body: Suite","text":"Les évolutions possibles\nsont l'intégration ATS, des\ntableaux de bord RH plus\ncomplets et des tests\nqualité plus poussés.","textPreview":"Les évolutions possibles | sont l'intégration ATS, des | tableaux de bord RH plus | complets et des tests | qualité plus poussés.","textChars":121,"textLines":5,"bbox":[865.3333333333334,472,306.6666666666667,104]}

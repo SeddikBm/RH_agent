@@ -67,18 +67,21 @@ async def validate_rapport_node(state: AnalysisState) -> dict:
             issues.append(f"Champ manquant: {field}")
 
     # ── 4. Vérification de la recommandation ──────────────
-    recommandations_valides = {"Entretien recommandé", "À considérer", "Profil insuffisant"}
-    if rapport.get("recommandation") not in recommandations_valides:
-        old_rec = rapport.get("recommandation")
-        score_global = scores.get("score_global", 0)
-        if score_global >= 70:
-            rapport["recommandation"] = "Entretien recommandé"
-        elif score_global >= 50:
-            rapport["recommandation"] = "À considérer"
-        else:
-            rapport["recommandation"] = "Profil insuffisant"
-        issues.append(f"Recommandation corrigée: '{old_rec}' → '{rapport['recommandation']}'")
+    # Toujours vérifier la cohérence score ↔ recommandation
+    score_global = float(scores.get("score_global", 0))
+    if score_global >= 70:
+        expected_rec = "Entretien recommandé"
+    elif score_global >= 50:
+        expected_rec = "À considérer"
+    else:
+        expected_rec = "Profil insuffisant"
 
+    current_rec = rapport.get("recommandation")
+    recommandations_valides = {"Entretien recommandé", "À considérer", "Profil insuffisant"}
+    if current_rec not in recommandations_valides or current_rec != expected_rec:
+        rapport["recommandation"] = expected_rec
+        if current_rec != expected_rec:
+            issues.append(f"Recommandation corrigée: '{current_rec}' → '{expected_rec}' (score={score_global:.0f})")
     # ── 5. Détection de biais ──────────────────────────────
     texte_complet = " ".join([
         rapport.get("adequation_poste", ""),
@@ -103,7 +106,8 @@ async def validate_rapport_node(state: AnalysisState) -> dict:
         logger.info("✅ Garde-fous — Rapport validé sans problème")
 
     # Décision : retry si problèmes critiques et retries disponibles
-    critical_issues = [i for i in issues if "manquant" in i or "absent" in i]
+    # "corrigée" couvre : recommandation invalide corrigée automatiquement
+    critical_issues = [i for i in issues if "manquant" in i or "absent" in i or "corrigée" in i]
     should_retry = bool(critical_issues) and tentatives < MAX_RETRIES
 
     return {

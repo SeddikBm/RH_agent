@@ -1,0 +1,288 @@
+{"kind":"deck","id":"rh-agent-8min","slideCount":8,"slideSize":{"width":1280,"height":720}}
+{"kind":"slide","slide":1,"id":"z65sbh"}
+{"kind":"slide","slide":2,"id":"z2dgr2"}
+{"kind":"slide","slide":3,"id":"xnj329"}
+{"kind":"slide","slide":4,"id":"c6xt4u"}
+{"kind":"slide","slide":5,"id":"capmdq"}
+{"kind":"slide","slide":6,"id":"xk0qcq"}
+{"kind":"slide","slide":7,"id":"mk80uk"}
+{"kind":"slide","slide":8,"id":"u1c232"}
+{"kind":"shape","slide":1,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":1,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":1,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":1,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":1,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":1,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":1,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":1,"id":"9","role":"cover wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"shape","slide":1,"id":"10","role":"cover accent rule","shapeType":"rect","bbox":[72,104,7,430]}
+{"kind":"textbox","slide":1,"id":"11","role":"kicker","text":"PROJET RH AGENT","textPreview":"PROJET RH AGENT","textChars":15,"textLines":1,"bbox":[96,102,520,26]}
+{"kind":"textbox","slide":1,"id":"12","role":"cover title","text":"Agent RH IA\nÉvaluation intelligente de candidatures","textPreview":"Agent RH IA | Évaluation intelligente de candidatures","textChars":51,"textLines":2,"bbox":[92,144,780,182]}
+{"kind":"textbox","slide":1,"id":"13","role":"cover subtitle","text":"Une plateforme qui classe des CV, sélectionne les profils les plus prometteurs et génère des rapports explicatifs pour aider le recruteur.","textPreview":"Une plateforme qui classe des CV, sélectionne les profils les plus prometteurs et génère des rapports explicatifs pour aider le recruteur.","textChars":138,"textLines":1,"bbox":[96,332,700,94]}
+{"kind":"shape","slide":1,"id":"14","role":"cover moment panel","shapeType":"roundRect","bbox":[96,470,420,88]}
+{"kind":"textbox","slide":1,"id":"15","role":"cover moment","text":"RAG + LangGraph","textPreview":"RAG + LangGraph","textChars":15,"textLines":1,"bbox":[122,493,372,36]}
+{"kind":"shape","slide":1,"id":"16","role":"cover badge panel","shapeType":"roundRect","bbox":[920,122,220,220]}
+{"kind":"textbox","slide":1,"id":"17","role":"cover stat","text":"2 phases","textPreview":"2 phases","textChars":8,"textLines":1,"bbox":[972,154,120,42]}
+{"kind":"textbox","slide":1,"id":"18","role":"cover stat body","text":"RAG pour classer\nLangGraph pour expliquer","textPreview":"RAG pour classer | LangGraph pour expliquer","textChars":41,"textLines":2,"bbox":[960,212,146,84]}
+{"kind":"shape","slide":2,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":2,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":2,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":2,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":2,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":2,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":2,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":2,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":2,"id":"10","role":"header","text":"01. PROBLEME","textPreview":"01. PROBLEME","textChars":12,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":2,"id":"11","role":"header","text":"02 / 08","textPreview":"02 / 08","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":2,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":2,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":2,"id":"14","role":"title","text":"Pourquoi ce projet ?","textPreview":"Pourquoi ce projet ?","textChars":20,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":2,"id":"15","role":"subtitle","text":"Le recrutement produit beaucoup de CV, peu de temps d'analyse et un vrai besoin de justification.","textPreview":"Le recrutement produit beaucoup de CV, peu de temps d'analyse et un vrai besoin de justification.","textChars":97,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":2,"id":"16","role":"card panel: Volume","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":2,"id":"17","role":"card accent: Volume","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":2,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":2,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":2,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":2,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":2,"id":"22","role":"card label","text":"Volume","textPreview":"Volume","textChars":6,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":2,"id":"23","role":"card body: Volume","text":"Un recruteur doit comparer\nrapidement beaucoup de CV\nheterogenes pour un meme\nposte.","textPreview":"Un recruteur doit comparer | rapidement beaucoup de CV | heterogenes pour un meme | poste.","textChars":84,"textLines":4,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":2,"id":"24","role":"card panel: Risque","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":2,"id":"25","role":"card accent: Risque","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":2,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":2,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":2,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":2,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":2,"id":"30","role":"card label","text":"Risque","textPreview":"Risque","textChars":6,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":2,"id":"31","role":"card body: Risque","text":"Le tri manuel devient long,\nvariable et difficile à\nexpliquer quand la pression\nmonte.","textPreview":"Le tri manuel devient long, | variable et difficile à | expliquer quand la pression | monte.","textChars":86,"textLines":4,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":2,"id":"32","role":"card panel: Besoin","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":2,"id":"33","role":"card accent: Besoin","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":2,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":2,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":2,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":2,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":2,"id":"38","role":"card label","text":"Besoin","textPreview":"Besoin","textChars":6,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":2,"id":"39","role":"card body: Besoin","text":"Il faut accélérer le pré-tri\nsans retirer le contrôle\nhumain sur la décision\nfinale.","textPreview":"Il faut accélérer le pré-tri | sans retirer le contrôle | humain sur la décision | finale.","textChars":84,"textLines":4,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":3,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":3,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":3,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":3,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":3,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":3,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":3,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":3,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":3,"id":"10","role":"header","text":"02. SOLUTION","textPreview":"02. SOLUTION","textChars":12,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":3,"id":"11","role":"header","text":"03 / 08","textPreview":"03 / 08","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":3,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":3,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":3,"id":"14","role":"title","text":"La réponse proposée","textPreview":"La réponse proposée","textChars":19,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":3,"id":"15","role":"subtitle","text":"Le projet combine présélection rapide, analyse détaillée et validation humaine.","textPreview":"Le projet combine présélection rapide, analyse détaillée et validation humaine.","textChars":79,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":3,"id":"16","role":"card panel: Phase 1","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":3,"id":"17","role":"card accent: Phase 1","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":3,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":3,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":3,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":3,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":3,"id":"22","role":"card label","text":"Phase 1","textPreview":"Phase 1","textChars":7,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":3,"id":"23","role":"card body: Phase 1","text":"Un moteur RAG classe tous\nles CV contre une fiche de\nposte à partir de sections\ncomparables.","textPreview":"Un moteur RAG classe tous | les CV contre une fiche de | poste à partir de sections | comparables.","textChars":92,"textLines":4,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":3,"id":"24","role":"card panel: Phase 2","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":3,"id":"25","role":"card accent: Phase 2","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":3,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":3,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":3,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":3,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":3,"id":"30","role":"card label","text":"Phase 2","textPreview":"Phase 2","textChars":7,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":3,"id":"31","role":"card body: Phase 2","text":"LangGraph analyse ensuite\nles profils retenus pour\nproduire un rapport détaillé\net argumenté.","textPreview":"LangGraph analyse ensuite | les profils retenus pour | produire un rapport détaillé | et argumenté.","textChars":93,"textLines":4,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":3,"id":"32","role":"card panel: Contrôle RH","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":3,"id":"33","role":"card accent: Contrôle RH","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":3,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":3,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":3,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":3,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":3,"id":"38","role":"card label","text":"Contrôle RH","textPreview":"Contrôle RH","textChars":11,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":3,"id":"39","role":"card body: Contrôle RH","text":"Le recruteur choisit quels\ncandidats passent à\nl'analyse approfondie : l'IA\nassiste, elle ne décide pas.","textPreview":"Le recruteur choisit quels | candidats passent à | l'analyse approfondie : l'IA | assiste, elle ne décide pas.","textChars":104,"textLines":4,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":4,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":4,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":4,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":4,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":4,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":4,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":4,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":4,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":4,"id":"10","role":"header","text":"03. ARCHITECTURE","textPreview":"03. ARCHITECTURE","textChars":16,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":4,"id":"11","role":"header","text":"04 / 08","textPreview":"04 / 08","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":4,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":4,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":4,"id":"14","role":"title","text":"Architecture technique","textPreview":"Architecture technique","textChars":22,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":4,"id":"15","role":"subtitle","text":"Le système relie une interface React, une API FastAPI, un stockage SQL et un moteur vectoriel.","textPreview":"Le système relie une interface React, une API FastAPI, un stockage SQL et un moteur vectoriel.","textChars":94,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":4,"id":"16","role":"card panel: Frontend","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":4,"id":"17","role":"card accent: Frontend","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":4,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":4,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":4,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":4,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":4,"id":"22","role":"card label","text":"Frontend","textPreview":"Frontend","textChars":8,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":4,"id":"23","role":"card body: Frontend","text":"React + Vite pour créer les\npostes, déposer les CV,\nsuivre les analyses et lire\nles rapports.","textPreview":"React + Vite pour créer les | postes, déposer les CV, | suivre les analyses et lire | les rapports.","textChars":93,"textLines":4,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":4,"id":"24","role":"card panel: Backend","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":4,"id":"25","role":"card accent: Backend","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":4,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":4,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":4,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":4,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":4,"id":"30","role":"card label","text":"Backend","textPreview":"Backend","textChars":7,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":4,"id":"31","role":"card body: Backend","text":"FastAPI orchestre les routes\nCV, jobs et analyses, ainsi\nque les traitements en\narrière-plan.","textPreview":"FastAPI orchestre les routes | CV, jobs et analyses, ainsi | que les traitements en | arrière-plan.","textChars":93,"textLines":4,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":4,"id":"32","role":"card panel: Données & IA","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":4,"id":"33","role":"card accent: Données & IA","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":4,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":4,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":4,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":4,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":4,"id":"38","role":"card label","text":"Données & IA","textPreview":"Données & IA","textChars":12,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":4,"id":"39","role":"card body: Données & IA","text":"PostgreSQL garde\nl'historique métier,\nChromaDB gère la similarité\net le LLM structure puis\nexplique.","textPreview":"PostgreSQL garde | l'historique métier, | ChromaDB gère la similarité | et le LLM structure puis | explique.","textChars":100,"textLines":5,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":5,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":5,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":5,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":5,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":5,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":5,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":5,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":5,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":5,"id":"10","role":"header","text":"04. PARCOURS","textPreview":"04. PARCOURS","textChars":12,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":5,"id":"11","role":"header","text":"05 / 08","textPreview":"05 / 08","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":5,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":5,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":5,"id":"14","role":"title","text":"Parcours d'utilisation","textPreview":"Parcours d'utilisation","textChars":22,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":5,"id":"15","role":"subtitle","text":"Le flux est simple : du poste jusqu'au classement, puis du classement jusqu'au rapport PDF.","textPreview":"Le flux est simple : du poste jusqu'au classement, puis du classement jusqu'au rapport PDF.","textChars":91,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":5,"id":"16","role":"card panel: 1. Entrée","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":5,"id":"17","role":"card accent: 1. Entrée","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":5,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":5,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":5,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":5,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":5,"id":"22","role":"card label","text":"1. Entrée","textPreview":"1. Entrée","textChars":9,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":5,"id":"23","role":"card body: 1. Entrée","text":"Le recruteur crée un poste\nou l'extrait d'un document,\npuis dépose plusieurs CV.","textPreview":"Le recruteur crée un poste | ou l'extrait d'un document, | puis dépose plusieurs CV.","textChars":80,"textLines":3,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":5,"id":"24","role":"card panel: 2. Sélection","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":5,"id":"25","role":"card accent: 2. Sélection","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":5,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":5,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":5,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":5,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":5,"id":"30","role":"card label","text":"2. Sélection","textPreview":"2. Sélection","textChars":12,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":5,"id":"31","role":"card body: 2. Sélection","text":"Le batch calcule un\nclassement RAG, affiche les\nmeilleurs profils et laisse\nchoisir le top à\napprofondir.","textPreview":"Le batch calcule un | classement RAG, affiche les | meilleurs profils et laisse | choisir le top à | approfondir.","textChars":105,"textLines":5,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":5,"id":"32","role":"card panel: 3. Restitution","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":5,"id":"33","role":"card accent: 3. Restitution","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":5,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":5,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":5,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":5,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":5,"id":"38","role":"card label","text":"3. Restitution","textPreview":"3. Restitution","textChars":14,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":5,"id":"39","role":"card body: 3. Restitution","text":"Chaque analyse produit des\nscores, des points forts,\ndes lacunes, une\nrecommandation et un PDF.","textPreview":"Chaque analyse produit des | scores, des points forts, | des lacunes, une | recommandation et un PDF.","textChars":95,"textLines":4,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":6,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":6,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":6,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":6,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":6,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":6,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":6,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":6,"id":"9","role":"metrics wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":6,"id":"10","role":"header","text":"05. ALGORITHME","textPreview":"05. ALGORITHME","textChars":14,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":6,"id":"11","role":"header","text":"06 / 08","textPreview":"06 / 08","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":6,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":6,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":6,"id":"14","role":"title","text":"Logique d'évaluation","textPreview":"Logique d'évaluation","textChars":20,"textLines":1,"bbox":[72,92,820,138]}
+{"kind":"textbox","slide":6,"id":"15","role":"subtitle","text":"Le score métier suit une pondération 40/30/20/10, puis un scoring détaillé mélange 70 % LLM et 30 % RAG.","textPreview":"Le score métier suit une pondération 40/30/20/10, puis un scoring détaillé mélange 70 % LLM et 30 % RAG.","textChars":104,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":6,"id":"16","role":"metric panel: Compétences techniques","shapeType":"roundRect","bbox":[92,344,540,146]}
+{"kind":"shape","slide":6,"id":"17","role":"metric accent: Compétences techniques","shapeType":"rect","bbox":[92,344,540,7]}
+{"kind":"textbox","slide":6,"id":"18","role":"metric value","text":"40 %","textPreview":"40 %","textChars":4,"textLines":1,"bbox":[114,368,496,46]}
+{"kind":"textbox","slide":6,"id":"19","role":"metric label","text":"Compétences techniques","textPreview":"Compétences techniques","textChars":22,"textLines":1,"bbox":[116,420,492,26]}
+{"kind":"textbox","slide":6,"id":"20","role":"metric note","text":"Poids principal dans le score global","textPreview":"Poids principal dans le score global","textChars":36,"textLines":1,"bbox":[116,454,492,18]}
+{"kind":"shape","slide":6,"id":"21","role":"metric panel: Expérience","shapeType":"roundRect","bbox":[648,344,540,146]}
+{"kind":"shape","slide":6,"id":"22","role":"metric accent: Expérience","shapeType":"rect","bbox":[648,344,540,7]}
+{"kind":"textbox","slide":6,"id":"23","role":"metric value","text":"30 %","textPreview":"30 %","textChars":4,"textLines":1,"bbox":[670,368,496,46]}
+{"kind":"textbox","slide":6,"id":"24","role":"metric label","text":"Expérience","textPreview":"Expérience","textChars":10,"textLines":1,"bbox":[672,420,492,26]}
+{"kind":"textbox","slide":6,"id":"25","role":"metric note","text":"Missions, ancienneté et adéquation","textPreview":"Missions, ancienneté et adéquation","textChars":34,"textLines":1,"bbox":[672,454,492,18]}
+{"kind":"shape","slide":6,"id":"26","role":"metric panel: Formation","shapeType":"roundRect","bbox":[92,512,540,146]}
+{"kind":"shape","slide":6,"id":"27","role":"metric accent: Formation","shapeType":"rect","bbox":[92,512,540,7]}
+{"kind":"textbox","slide":6,"id":"28","role":"metric value","text":"20 %","textPreview":"20 %","textChars":4,"textLines":1,"bbox":[114,536,496,46]}
+{"kind":"textbox","slide":6,"id":"29","role":"metric label","text":"Formation","textPreview":"Formation","textChars":9,"textLines":1,"bbox":[116,588,492,26]}
+{"kind":"textbox","slide":6,"id":"30","role":"metric note","text":"Diplôme, cursus, certifications","textPreview":"Diplôme, cursus, certifications","textChars":31,"textLines":1,"bbox":[116,622,492,18]}
+{"kind":"shape","slide":6,"id":"31","role":"metric panel: Profil","shapeType":"roundRect","bbox":[648,512,540,146]}
+{"kind":"shape","slide":6,"id":"32","role":"metric accent: Profil","shapeType":"rect","bbox":[648,512,540,7]}
+{"kind":"textbox","slide":6,"id":"33","role":"metric value","text":"10 %","textPreview":"10 %","textChars":4,"textLines":1,"bbox":[670,536,496,46]}
+{"kind":"textbox","slide":6,"id":"34","role":"metric label","text":"Profil","textPreview":"Profil","textChars":6,"textLines":1,"bbox":[672,588,492,26]}
+{"kind":"textbox","slide":6,"id":"35","role":"metric note","text":"Soft skills, langues, resume","textPreview":"Soft skills, langues, resume","textChars":28,"textLines":1,"bbox":[672,622,492,18]}
+{"kind":"shape","slide":7,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":7,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":7,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":7,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":7,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":7,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":7,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":7,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":7,"id":"10","role":"header","text":"06. SORTIES","textPreview":"06. SORTIES","textChars":11,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":7,"id":"11","role":"header","text":"07 / 08","textPreview":"07 / 08","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":7,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":7,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":7,"id":"14","role":"title","text":"Ce que le système produit","textPreview":"Ce que le système produit","textChars":25,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":7,"id":"15","role":"subtitle","text":"Le résultat n'est pas juste un score : c'est un dossier d'aide à la décision complet.","textPreview":"Le résultat n'est pas juste un score : c'est un dossier d'aide à la décision complet.","textChars":85,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":7,"id":"16","role":"card panel: Classement","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":7,"id":"17","role":"card accent: Classement","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":7,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":7,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":7,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":7,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":7,"id":"22","role":"card label","text":"Classement","textPreview":"Classement","textChars":10,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":7,"id":"23","role":"card body: Classement","text":"Une vue comparative des\ncandidats avec rang, score\nRAG et statut par poste.","textPreview":"Une vue comparative des | candidats avec rang, score | RAG et statut par poste.","textChars":75,"textLines":3,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":7,"id":"24","role":"card panel: Rapport","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":7,"id":"25","role":"card accent: Rapport","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":7,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":7,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":7,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":7,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":7,"id":"30","role":"card label","text":"Rapport","textPreview":"Rapport","textChars":7,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":7,"id":"31","role":"card body: Rapport","text":"Un document structuré avec\nmatching compétence par\ncompétence, adéquation au\nposte et recommandation.","textPreview":"Un document structuré avec | matching compétence par | compétence, adéquation au | poste et recommandation.","textChars":101,"textLines":4,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":7,"id":"32","role":"card panel: Traçabilité","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":7,"id":"33","role":"card accent: Traçabilité","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":7,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":7,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":7,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":7,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":7,"id":"38","role":"card label","text":"Traçabilité","textPreview":"Traçabilité","textChars":11,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":7,"id":"39","role":"card body: Traçabilité","text":"Le recruteur peut relire la\nlogique, télécharger un PDF\net garder une trace\nexplicable.","textPreview":"Le recruteur peut relire la | logique, télécharger un PDF | et garder une trace | explicable.","textChars":87,"textLines":4,"bbox":[865.3333333333334,472,306.6666666666667,104]}
+{"kind":"shape","slide":8,"id":"2","role":"bg orb","shapeType":"ellipse","bbox":[900,-130,470,470]}
+{"kind":"shape","slide":8,"id":"3","role":"bg orb","shapeType":"ellipse","bbox":[-140,460,420,420]}
+{"kind":"shape","slide":8,"id":"4","role":"bg orb","shapeType":"ellipse","bbox":[1010,545,170,170]}
+{"kind":"shape","slide":8,"id":"5","role":"bg orb","shapeType":"ellipse","bbox":[70,88,110,110]}
+{"kind":"shape","slide":8,"id":"6","role":"bg ring","shapeType":"ellipse","bbox":[968,52,240,240]}
+{"kind":"shape","slide":8,"id":"7","role":"bg ring","shapeType":"ellipse","bbox":[1032,116,110,110]}
+{"kind":"shape","slide":8,"id":"8","role":"top haze","shapeType":"rect","bbox":[0,0,1280,86]}
+{"kind":"shape","slide":8,"id":"9","role":"content wash","shapeType":"rect","bbox":[0,0,1280,720]}
+{"kind":"textbox","slide":8,"id":"10","role":"header","text":"07. CONCLUSION","textPreview":"07. CONCLUSION","textChars":14,"textLines":1,"bbox":[72,30,520,24]}
+{"kind":"textbox","slide":8,"id":"11","role":"header","text":"08 / 08","textPreview":"08 / 08","textChars":7,"textLines":1,"bbox":[1100,30,112,24]}
+{"kind":"shape","slide":8,"id":"12","role":"header rule","shapeType":"rect","bbox":[72,62,1136,2]}
+{"kind":"shape","slide":8,"id":"13","role":"header marker","shapeType":"ellipse","bbox":[63,53,18,18]}
+{"kind":"textbox","slide":8,"id":"14","role":"title","text":"Valeur, limites et suite","textPreview":"Valeur, limites et suite","textChars":24,"textLines":1,"bbox":[72,92,770,138]}
+{"kind":"textbox","slide":8,"id":"15","role":"subtitle","text":"Le projet est déjà utile, mais il reste volontairement conçu comme un outil d'assistance responsable.","textPreview":"Le projet est déjà utile, mais il reste volontairement conçu comme un outil d'assistance responsable.","textChars":101,"textLines":1,"bbox":[74,236,760,76]}
+{"kind":"shape","slide":8,"id":"16","role":"card panel: Valeur","shapeType":"roundRect","bbox":[84,386,354.6666666666667,214]}
+{"kind":"shape","slide":8,"id":"17","role":"card accent: Valeur","shapeType":"rect","bbox":[84,386,8,214]}
+{"kind":"shape","slide":8,"id":"18","role":"icon badge","shapeType":"ellipse","bbox":[106,410,54,54]}
+{"kind":"shape","slide":8,"id":"19","role":"icon glyph","shapeType":"rect","bbox":[122,439,6,12]}
+{"kind":"shape","slide":8,"id":"20","role":"icon glyph","shapeType":"rect","bbox":[131,431,6,20]}
+{"kind":"shape","slide":8,"id":"21","role":"icon glyph","shapeType":"rect","bbox":[140,424,6,27]}
+{"kind":"textbox","slide":8,"id":"22","role":"card label","text":"Valeur","textPreview":"Valeur","textChars":6,"textLines":1,"bbox":[172,408,246.66666666666669,28]}
+{"kind":"textbox","slide":8,"id":"23","role":"card body: Valeur","text":"Gain de temps, tri plus\nhomogène, lecture plus\nclaire des candidatures et\nmeilleure montée en charge.","textPreview":"Gain de temps, tri plus | homogène, lecture plus | claire des candidatures et | meilleure montée en charge.","textChars":101,"textLines":4,"bbox":[108,472,306.6666666666667,104]}
+{"kind":"shape","slide":8,"id":"24","role":"card panel: Limites","shapeType":"roundRect","bbox":[462.6666666666667,386,354.6666666666667,214]}
+{"kind":"shape","slide":8,"id":"25","role":"card accent: Limites","shapeType":"rect","bbox":[462.6666666666667,386,8,214]}
+{"kind":"shape","slide":8,"id":"26","role":"icon badge","shapeType":"ellipse","bbox":[484.6666666666667,410,54,54]}
+{"kind":"shape","slide":8,"id":"27","role":"icon glyph","shapeType":"ellipse","bbox":[497.6666666666667,428,10,10]}
+{"kind":"shape","slide":8,"id":"28","role":"icon glyph","shapeType":"ellipse","bbox":[515.6666666666667,437,10,10]}
+{"kind":"shape","slide":8,"id":"29","role":"icon glyph","shapeType":"rect","bbox":[506.6666666666667,435,19,3]}
+{"kind":"textbox","slide":8,"id":"30","role":"card label","text":"Limites","textPreview":"Limites","textChars":7,"textLines":1,"bbox":[550.6666666666667,408,246.66666666666669,28]}
+{"kind":"textbox","slide":8,"id":"31","role":"card body: Limites","text":"La qualité dépend des CV\nfournis, du modèle et des\nprompts ; le contrôle humain\nreste obligatoire.","textPreview":"La qualité dépend des CV | fournis, du modèle et des | prompts ; le contrôle humain | reste obligatoire.","textChars":98,"textLines":4,"bbox":[486.6666666666667,472,306.6666666666667,104]}
+{"kind":"shape","slide":8,"id":"32","role":"card panel: Perspectives","shapeType":"roundRect","bbox":[841.3333333333334,386,354.6666666666667,214]}
+{"kind":"shape","slide":8,"id":"33","role":"card accent: Perspectives","shapeType":"rect","bbox":[841.3333333333334,386,8,214]}
+{"kind":"shape","slide":8,"id":"34","role":"icon badge","shapeType":"ellipse","bbox":[863.3333333333334,410,54,54]}
+{"kind":"shape","slide":8,"id":"35","role":"icon glyph","shapeType":"roundRect","bbox":[876.3333333333334,425,26,13]}
+{"kind":"shape","slide":8,"id":"36","role":"icon glyph","shapeType":"roundRect","bbox":[881.3333333333334,434,26,13]}
+{"kind":"shape","slide":8,"id":"37","role":"icon glyph","shapeType":"roundRect","bbox":[886.3333333333334,443,20,10]}
+{"kind":"textbox","slide":8,"id":"38","role":"card label","text":"Perspectives","textPreview":"Perspectives","textChars":12,"textLines":1,"bbox":[929.3333333333334,408,246.66666666666669,28]}
+{"kind":"textbox","slide":8,"id":"39","role":"card body: Perspectives","text":"Intégration ATS, meilleure\nstructuration des CV,\ndashboards RH plus riches et\ntests qualité automatisés.","textPreview":"Intégration ATS, meilleure | structuration des CV, | dashboards RH plus riches et | tests qualité automatisés.","textChars":104,"textLines":4,"bbox":[865.3333333333334,472,306.6666666666667,104]}
