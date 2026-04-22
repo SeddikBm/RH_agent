@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/dashboard_preview.png" alt="RH Agent Dashboard" width="800"/>
+  <img src="docs/images/dashboard_preview.jpeg" alt="RH Agent Dashboard" width="800"/>
 </p>
 
 <h1 align="center">🤖 RH Agent — AI-Powered Recruitment Assistant</h1>
