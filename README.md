@@ -53,9 +53,6 @@ The system is designed as a **decision-support tool** — it assists recruiters 
 
 ## 🏗 Architecture
 
-<p align="center">
-  <img src="docs/images/architecture.png" alt="Architecture Diagram" width="800"/>
-</p>
 
 The application is composed of four main blocks:
 
@@ -365,7 +362,7 @@ Final weighted score:
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="docs/images/dashboard_preview.png" alt="Dashboard Preview" width="700"/>
+  <img src="docs/images/dashboard_preview.jpeg" alt="Dashboard Preview" width="700"/>
   <br/>
   <em>Dashboard — Overview of recruitment analytics</em>
 </p>
